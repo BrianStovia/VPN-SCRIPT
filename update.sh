@@ -177,7 +177,40 @@ echo -e "${blue}[6/7] Memulai ulang layanan & optimasi jaringan...${NC}"
 # Fix missing systemd users and ensure systemd-networkd is enabled
 systemd-sysusers 2>/dev/null || true
 chmod 644 /etc/passwd /etc/group 2>/dev/null || true
+
+# Pastikan systemd-networkd config untuk interface ens masih ada (anti-drop saat restart)
+primary_interface=$(ip route | grep default | awk '{print $5}')
+if [ -n "$primary_interface" ] && [ ! -f "/etc/systemd/network/10-${primary_interface}.network" ]; then
+    echo -e "${blue}Membuat konfigurasi systemd-networkd untuk ${primary_interface}...${NC}"
+    mkdir -p /etc/systemd/network
+    cat > /etc/systemd/network/10-${primary_interface}.network << EOF
+[Match]
+Name=${primary_interface}
+
+[Network]
+DHCP=yes
+IPv6AcceptRA=no
+
+[DHCP]
+UseDNS=yes
+RouteMetric=100
+SendHostname=yes
+
+[Link]
+KeepConfiguration=dhcp-on-stop
+RequiredForOnline=yes
+ActivationPolicy=always-up
+EOF
+fi
+
+# Pastikan net-watchdog timer berjalan
+if [ -f "/etc/systemd/system/net-watchdog.timer" ]; then
+    systemctl enable net-watchdog.timer &>/dev/null
+    systemctl start net-watchdog.timer &>/dev/null
+fi
+
 systemctl enable systemd-networkd 2>/dev/null || true
+systemctl enable systemd-networkd-wait-online 2>/dev/null || true
 systemctl start systemd-networkd 2>/dev/null || true
 
 # Apply network kernel optimization for low latency gaming & bufferbloat control

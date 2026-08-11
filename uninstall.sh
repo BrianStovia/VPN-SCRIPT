@@ -40,6 +40,8 @@ services=(
     "dnstt"
     "client-sldns"
     "warp-svc"
+    "net-watchdog"
+    "net-watchdog.timer"
 )
 
 echo -e "${blue}[1/8] Menghentikan dan menonaktifkan layanan...${NC}"
@@ -78,6 +80,8 @@ service_files=(
     "/etc/systemd/system/microsocks.service"
     "/etc/systemd/system/dnstt.service"
     "/etc/systemd/system/client-sldns.service"
+    "/etc/systemd/system/net-watchdog.service"
+    "/etc/systemd/system/net-watchdog.timer"
 )
 
 for file in "${service_files[@]}"; do
@@ -198,12 +202,14 @@ files=(
     "/usr/local/sbin/menu-ssh"
     "/usr/local/sbin/ssh-limit"
     "/usr/bin/ssh-limit"
+    "/usr/local/sbin/net-watchdog"
     "/usr/local/sbin/xp"
     "/usr/local/sbin/v2ray-watchdog"
     "/usr/local/sbin/update"
     "/usr/bin/update"
     "/etc/issue.net"
     "/root/.ip"
+    "/etc/udev/rules.d/60-txqueuelen.rules"
 )
 
 for file in "${files[@]}"; do

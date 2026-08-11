@@ -106,6 +106,12 @@ primary_interface=$(ip route | grep default | awk '{print $5}')
 if [ -n "$primary_interface" ]; then
     echo "Optimizing network card queue length for ${primary_interface}..."
     ip link set dev $primary_interface txqueuelen 10000 &>/dev/null
+
+    # Make txqueuelen persistent via udev (survives reboot)
+    mkdir -p /etc/udev/rules.d
+    cat > /etc/udev/rules.d/60-txqueuelen.rules << EOF
+ACTION=="add", SUBSYSTEM=="net", KERNEL=="${primary_interface}", RUN+="/sbin/ip link set dev ${primary_interface} txqueuelen 10000"
+EOF
 fi
 
 # Network & TCP Speed Optimization (BBR)
@@ -210,8 +216,76 @@ for sys_user in systemd-network systemd-resolve systemd-timesync; do
     fi
 done
 chmod 644 /etc/passwd /etc/group 2>/dev/null || true
+
+# ── Konfigurasi systemd-networkd agar interface ens tidak drop saat restart ──
+mkdir -p /etc/systemd/network
+primary_interface=$(ip route | grep default | awk '{print $5}')
+if [ -n "$primary_interface" ]; then
+    cat > /etc/systemd/network/10-${primary_interface}.network << EOF
+[Match]
+Name=${primary_interface}
+
+[Network]
+DHCP=yes
+IPv6AcceptRA=no
+
+[DHCP]
+UseDNS=yes
+RouteMetric=100
+SendHostname=yes
+
+[Link]
+# Jaga interface tetap UP saat networkd restart
+KeepConfiguration=dhcp-on-stop
+RequiredForOnline=yes
+ActivationPolicy=always-up
+EOF
+fi
+
+# ── Network watchdog: otomatis bangkitkan ens jika down ──
+cat > /usr/local/sbin/net-watchdog << 'WATCHDOG'
+#!/usr/bin/env bash
+IFACE=$(ip route | grep default | awk '{print $5}')
+if [ -z "$IFACE" ]; then exit 0; fi
+if ! ip link show "$IFACE" | grep -q "state UP"; then
+    echo "$(date): $IFACE is DOWN, bringing UP..." >> /var/log/net-watchdog.log
+    ip link set dev "$IFACE" up
+    sleep 2
+    systemctl restart systemd-networkd
+fi
+WATCHDOG
+chmod +x /usr/local/sbin/net-watchdog
+
+cat > /etc/systemd/system/net-watchdog.service << EOF
+[Unit]
+Description=Network Interface Watchdog
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/net-watchdog
+StandardOutput=null
+EOF
+
+cat > /etc/systemd/system/net-watchdog.timer << EOF
+[Unit]
+Description=Network Interface Watchdog Timer
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=60s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target
+EOF
+
+systemctl daemon-reload
 systemctl enable systemd-networkd 2>/dev/null || true
+systemctl enable systemd-networkd-wait-online 2>/dev/null || true
 systemctl start systemd-networkd 2>/dev/null || true
+systemctl enable net-watchdog.timer
+systemctl start net-watchdog.timer
 
 # Setup Banner SSH
 sed -i '/^#\?Banner /c\Banner /etc/issue.net' /etc/ssh/sshd_config
