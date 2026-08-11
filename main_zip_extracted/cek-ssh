@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+
+clear
+if [ -x "/usr/local/sbin/ssh-limit" ]; then
+    /usr/local/sbin/ssh-limit --check
+else
+    echo "Error: ssh-limit binary not found in /usr/local/sbin/"
+fi
