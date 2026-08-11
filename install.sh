@@ -194,7 +194,7 @@ apt install bsdextrautils -y 2>/dev/null || apt install bsdmainutils -y
 apt install iptables -y
 apt install iptables-persistent -y
 apt install binutils -y
-apt install python3 python3-pip -y
+# python3 tidak diperlukan — semua binary sudah dikompilasi dengan Go
 apt install zip -y
 apt install unzip -y
 apt install bc -y
@@ -326,7 +326,7 @@ mkdir -p /usr/local/sbin/api
 cd /usr/local/sbin/api
 chmod +x *
 cd
-get_file "server" "/usr/bin/server"
+get_file "bin/server" "/usr/bin/server"
 chmod +x /usr/bin/server
 cat> /etc/systemd/system/server.service << END
 [Unit]
@@ -347,19 +347,19 @@ WantedBy=multi-user.target
 END
 mkdir -p /etc/api
 
-# Setup Proxy SSHWS
+# Setup Proxy SSHWS (Go binary)
 cd /usr/local/bin
-get_file "proxy" "proxy"
+get_file "bin/proxy" "proxy"
 chmod +x proxy
 cd
 echo -e "[Unit]
-Description=WebSocket
+Description=WebSocket SSH/HTTP/SOCKS5 Proxy (Go)
 After=syslog.target network-online.target
 
 [Service]
 User=root
 NoNewPrivileges=true
-ExecStart=/usr/bin/python3 -u /usr/local/bin/proxy
+ExecStart=/usr/local/bin/proxy
 Restart=on-failure
 RestartPreventExitStatus=23
 LimitNPROC=10000
@@ -780,9 +780,9 @@ systemctl daemon-reload
 systemctl enable fail2ban
 systemctl restart fail2ban
 
-# Setup SSH Limit Daemon
+# Setup SSH Limit Daemon (Go binary)
 echo "Installing and configuring SSH Limit Daemon..."
-get_file "ssh-limit" "/usr/local/sbin/ssh-limit"
+get_file "bin/ssh-limit" "/usr/local/sbin/ssh-limit"
 chmod +x /usr/local/sbin/ssh-limit
 ln -sf /usr/local/sbin/ssh-limit /usr/bin/ssh-limit
 

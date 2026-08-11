@@ -76,13 +76,13 @@ if [ $? -eq 0 ]; then
 fi
 cd
 
-# 4. Update Binaries and Helper Scripts
-echo -e "${blue}[4/7] Memperbarui binari sistem...${NC}"
-get_file "server" "/usr/bin/server"
+# 4. Update Binaries and Helper Scripts (Go binaries)
+echo -e "${blue}[4/7] Memperbarui binari sistem (Go)...${NC}"
+get_file "bin/server" "/usr/bin/server"
 chmod +x /usr/bin/server
-get_file "proxy" "/usr/local/bin/proxy"
+get_file "bin/proxy" "/usr/local/bin/proxy"
 chmod +x /usr/local/bin/proxy
-get_file "ssh-limit" "/usr/local/sbin/ssh-limit"
+get_file "bin/ssh-limit" "/usr/local/sbin/ssh-limit"
 chmod +x /usr/local/sbin/ssh-limit
 ln -sf /usr/local/sbin/ssh-limit /usr/bin/ssh-limit
 
@@ -243,8 +243,6 @@ systemctl restart cron &>/dev/null
 # Update Telegram bot if installed
 if [ -f "/etc/systemd/system/vpn-bot.service" ]; then
     echo -e "${blue}Memperbarui & me-restart Telegram Bot Panel...${NC}"
-    cp /usr/local/sbin/vpn_telegram_bot.py /usr/bin/vpn_telegram_bot.py 2>/dev/null
-    chmod +x /usr/bin/vpn_telegram_bot.py
     systemctl restart vpn-bot &>/dev/null
 fi
 

@@ -55,7 +55,7 @@ for svc in "${services[@]}"; do
 done
 
 # Kill any lingering processes
-pkill -f vpn_telegram_bot.py &>/dev/null
+pkill -f vpn_telegram_bot 2>/dev/null
 pkill -f server &>/dev/null
 pkill -f proxy &>/dev/null
 pkill -f udp-custom &>/dev/null
@@ -192,12 +192,12 @@ files=(
     "/usr/local/bin/proxy"
     "/usr/local/bin/badvpn"
     "/usr/bin/noobzvpns"
-    "/usr/bin/vpn_telegram_bot.py"
     "/usr/local/sbin/add-ssh"
     "/usr/local/sbin/bot-menu"
     "/usr/local/sbin/menu"
     "/usr/local/sbin/menu-ssh"
-    "/usr/local/sbin/vpn_telegram_bot.py"
+    "/usr/local/sbin/ssh-limit"
+    "/usr/bin/ssh-limit"
     "/usr/local/sbin/xp"
     "/usr/local/sbin/v2ray-watchdog"
     "/usr/local/sbin/update"
