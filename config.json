@@ -1,0 +1,468 @@
+{
+  "log": {
+    "loglevel": "info",
+    "access": "/var/log/v2ray/access.log"
+  },
+  "api": {
+    "services": [
+      "HandlerService",
+      "LoggerService",
+      "StatsService"
+    ],
+    "tag": "api"
+  },
+  "stats": {},
+  "policy": {
+    "levels": {
+      "0": {
+        "handshake": 2,
+        "connIdle": 60,
+        "statsUserUplink": true,
+        "statsUserDownlink": true
+      }
+    },
+    "system": {
+      "statsInboundUplink": true,
+      "statsInboundDownlink": true,
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10085,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1"
+      },
+      "tag": "api"
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 2,
+      "protocol": "vless",
+      "settings": {
+        "decryption": "none",
+        "clients": [
+          {
+            "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+            #vless
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/vless"
+        }
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 4,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0",
+            "alterId": 0
+            #vmess
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/vmess"
+        }
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 3,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0",
+            "alterId": 0
+            #vmess
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/"
+        }
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 5,
+      "protocol": "trojan",
+      "settings": {
+        "decryption": "none",
+        "clients": [
+          {
+            "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+            #trojan
+          }
+        ],
+        "udp": true
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/trojan-ws"
+        }
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 7,
+      "protocol": "vless",
+      "settings": {
+        "decryption": "none",
+        "clients": [
+          {
+            "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+            #vless
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "vless-grpc"
+        }
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 8,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0",
+            "alterId": 0
+            #vmess
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "vmess-grpc"
+        }
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 9,
+      "protocol": "trojan",
+      "settings": {
+        "decryption": "none",
+        "clients": [
+          {
+            "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+            #trojan
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "trojan-grpc"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      },
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "outboundTag": "direct",
+        "domain": [
+          "geosite:openai",
+          "geosite:netflix",
+          "geosite:disney",
+          "geosite:primevideo",
+          "geosite:category-games",
+          "domain:tencent-cloud.com",
+          "domain:anticheatexpert.com",
+          "domain:garena.com",
+          "domain:tencent.com",
+          "domain:qq.com",
+          "domain:wegame.com.cn",
+          "domain:gcloudsvcs.com",
+          "domain:levelinfinite.com",
+          "domain:vasdgame.com",
+          "domain:garenanow.com",
+          "domain:forzamotorsport.net",
+          "domain:xboxlive.com",
+          "domain:cloudapp.azure.com",
+          "domain:playfabapi.com",
+          "domain:steamserver.net",
+          "domain:steampowered.com",
+          "domain:steamcommunity.com",
+          "domain:ipinfo.io",
+          "domain:seabank.co.id",
+          "domain:bankamar.co.id",
+          "domain:bankjago.com",
+          "domain:bankresona.co.id",
+          "domain:bankwoori.co.id",
+          "domain:bankbws.co.id",
+          "domain:bankmultiarta.co.id",
+          "domain:bankfama.co.id",
+          "domain:bankkebhana.co.id",
+          "domain:bankjasaarta.co.id",
+          "domain:bankindexselindo.co.id",
+          "domain:bankofindia.co.id",
+          "domain:bankchinaconstruction.co.id",
+          "domain:dbs.id",
+          "domain:maybankindonesia.com",
+          "domain:wooribank.com",
+          "domain:resonabank.co.id",
+          "domain:neobank.co.id",
+          "domain:bi.go.id",
+          "domain:bankindonesia.co.id",
+          "domain:fast.bi.go.id",
+          "domain:gerbangpembayarannasional.id",
+          "domain:linkaja.id",
+          "domain:ovo.id",
+          "domain:dana.id",
+          "domain:gopay.co.id",
+          "domain:shopeepay.co.id",
+          "domain:flip.id",
+          "domain:xendit.co",
+          "domain:midtrans.com",
+          "domain:faspay.co.id",
+          "domain:duitku.com",
+          "domain:ipaymu.com",
+          "domain:qris.id",
+          "domain:aspi-indonesia.or.id",
+          "domain:bri.co.id",
+          "domain:bankmandiri.co.id",
+          "domain:bni.co.id",
+          "domain:btn.co.id",
+          "domain:danamon.co.id",
+          "domain:permatabank.com",
+          "domain:bca.co.id",
+          "domain:maybank.co.id",
+          "domain:panin.co.id",
+          "domain:cimbniaga.com",
+          "domain:uob.co.id",
+          "domain:ocbcnisp.com",
+          "domain:arthagraha.com",
+          "domain:bankbba.co.id",
+          "domain:hsbc.co.id",
+          "domain:jtrustbank.co.id",
+          "domain:bankmayapada.com",
+          "domain:boiindonesia.co.id",
+          "domain:muamalatbank.com",
+          "domain:bankmestika.co.id",
+          "domain:shinhan.co.id",
+          "domain:banksinarmas.co.id",
+          "domain:bankmaspion.co.id",
+          "domain:bankganesha.co.id",
+          "domain:icbcindo.com",
+          "domain:qnb.co.id",
+          "domain:banksaudara.com",
+          "domain:bankmega.com",
+          "domain:bankbsi.co.id",
+          "domain:bukopin.co.id",
+          "domain:hanabank.co.id",
+          "domain:mncbank.co.id",
+          "domain:bankraya.co.id",
+          "domain:sbiindo.com",
+          "domain:megasyariah.co.id",
+          "domain:bankindex.co.id",
+          "domain:bankmayora.com",
+          "domain:ccb.com",
+          "domain:dbs.com",
+          "domain:perdania.co.id",
+          "domain:mizuhocbk.co.id",
+          "domain:bankcapital.co.id",
+          "domain:bnpparibas.co.id",
+          "domain:anz.com",
+          "domain:bankagris.co.id",
+          "domain:aladinbank.id",
+          "domain:chinatrust.co.id",
+          "domain:commbank.co.id",
+          "domain:btpn.com",
+          "domain:bankvictoriasyariah.co.id",
+          "domain:bjbsyariah.co.id",
+          "domain:bankbisnis.com",
+          "domain:bjj.co.id",
+          "domain:bankneocommerce.co.id",
+          "domain:bcadigital.co.id",
+          "domain:nobubank.com",
+          "domain:bankina.co.id",
+          "domain:paninbanksyariah.co.id",
+          "domain:primamasterbank.co.id",
+          "domain:syariahbukopin.co.id",
+          "domain:banksampoerna.com",
+          "domain:bankdinar.co.id",
+          "domain:amarbank.co.id",
+          "domain:bankkesejahteraan.co.id",
+          "domain:bcasyariah.co.id",
+          "domain:jago.com",
+          "domain:btpnsyariah.com",
+          "domain:bankmas.co.id",
+          "domain:superbank.id",
+          "domain:bankmantap.co.id",
+          "domain:victoriabank.co.id",
+          "domain:allobank.com",
+          "domain:bankjabar.co.id",
+          "domain:bankdki.co.id",
+          "domain:bpddiy.co.id",
+          "domain:bankjateng.co.id",
+          "domain:bankjatim.co.id",
+          "domain:bankjambi.co.id",
+          "domain:bankaceh.co.id",
+          "domain:banksumut.com",
+          "domain:banknagari.co.id",
+          "domain:brksyariah.co.id",
+          "domain:banksumselbabel.com",
+          "domain:banklampung.co.id",
+          "domain:bankbpdkalsel.co.id",
+          "domain:bankkalbar.co.id",
+          "domain:bankkaltim.com",
+          "domain:bp-kalteng.com",
+          "domain:banksulsel.co.id",
+          "domain:banksulutgo.co.id",
+          "domain:bankntb.co.id",
+          "domain:bpdbali.co.id",
+          "domain:bpdntt.co.id",
+          "domain:bankmaluku.co.id",
+          "domain:bankpapua.com",
+          "domain:bankbengkulu.co.id",
+          "domain:sulteng.go.id",
+          "domain:banksultra.co.id",
+          "domain:bankbanten.co.id",
+          "domain:citibank.co.id",
+          "domain:jpmorganchase.com",
+          "domain:bankofamerica.com",
+          "domain:mufg.co.id",
+          "domain:standardchartered.com",
+          "domain:deutsche-bank.co.id",
+          "domain:bankofchina.co.id",
+          "domain:netflix.com",
+          "domain:nflxvideo.net",
+          "domain:nflximg.net",
+          "domain:nflxext.com",
+          "domain:nflxso.net",
+          "domain:disneyplus.com",
+          "domain:disney-plus.net",
+          "domain:bamgrid.com",
+          "domain:disney.com",
+          "domain:primevideo.com",
+          "domain:amazonvideo.com",
+          "domain:amazon.com",
+          "domain:media-amazon.com",
+          "domain:chatgpt.com",
+          "domain:openai.com",
+          "domain:oaistatic.com",
+          "domain:oaiusercontent.com",
+          "domain:claude.ai",
+          "domain:anthropic.com",
+          "domain:perplexity.ai",
+          "domain:binance.com",
+          "domain:binance.me",
+          "domain:binance.cloud",
+          "domain:bybit.com",
+          "domain:bytick.com",
+          "domain:kraken.com",
+          "domain:okx.com",
+          "domain:kucoin.com",
+          "domain:bitget.com",
+          "domain:mexc.com",
+          "domain:gate.io",
+          "domain:htx.com",
+          "domain:coinbase.com",
+          "domain:crypto.com",
+          "domain:coinmarketcap.com",
+          "domain:coingecko.com",
+          "domain:go.id",
+          "domain:kemkes.go.id",
+          "domain:pajak.go.id",
+          "domain:bpjs-kesehatan.go.id",
+          "domain:bpjsketenagakerjaan.go.id",
+          "domain:imigrasi.go.id",
+          "domain:mahkamahagung.go.id",
+          "domain:kemenag.go.id",
+          "domain:djponline.pajak.go.id",
+          "domain:cekdptonline.kpu.go.id",
+          "domain:dukcapil.kemendagri.go.id",
+          "domain:oss.go.id",
+          "domain:telkomsel.com",
+          "domain:mytelkomsel.com",
+          "domain:im3.id",
+          "domain:indosatooredoo.com",
+          "domain:xl.co.id",
+          "domain:myxl.co.id",
+          "domain:axis.co.id",
+          "domain:tri.co.id",
+          "domain:bima.tri.co.id",
+          "domain:smartfren.com",
+          "domain:mysmartfren.com",
+          "domain:byu.id",
+          "domain:liveon.id",
+          "domain:orderkuota.com",
+          "regexp:\\.go\\.id$"
+        ]
+      },
+      {
+        "type": "field",
+        "ip": [
+          "0.0.0.0/8",
+          "10.0.0.0/8",
+          "100.64.0.0/10",
+          "169.254.0.0/16",
+          "172.16.0.0/12",
+          "192.0.0.0/24",
+          "192.0.2.0/24",
+          "192.168.0.0/16",
+          "198.18.0.0/15",
+          "198.51.100.0/24",
+          "203.0.113.0/24",
+          "::1/128",
+          "fc00::/7",
+          "fe80::/10"
+        ],
+        "outboundTag": "blocked"
+      },
+      {
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "type": "field"
+      },
+      {
+        "type": "field",
+        "outboundTag": "blocked",
+        "protocol": [
+          "bittorrent"
+        ]
+      }
+    ]
+  }
+}

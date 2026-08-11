@@ -1,0 +1,456 @@
+#!/usr/bin/env python3
+
+import socket
+import threading
+import select
+import signal
+import sys
+import time
+import getopt
+import hashlib
+import base64
+import os
+
+ws_mapping_lock = threading.Lock()
+
+def add_ws_mapping(local_port, real_ip):
+    with ws_mapping_lock:
+        try:
+            with open('/dev/shm/ws-ports.txt', 'a') as f:
+                f.write(f"{local_port}:{real_ip}\n")
+        except:
+            pass
+
+def remove_ws_mapping(local_port):
+    with ws_mapping_lock:
+        try:
+            if not os.path.exists('/dev/shm/ws-ports.txt'):
+                return
+            with open('/dev/shm/ws-ports.txt', 'r') as f:
+                lines = f.readlines()
+            with open('/dev/shm/ws-ports.txt', 'w') as f:
+                for line in lines:
+                    if not line.startswith(f"{local_port}:"):
+                        f.write(line)
+        except:
+            pass
+
+# Listen
+LISTENING_ADDR = '127.0.0.1'
+LISTENING_PORT = 700
+
+if sys.argv[1:]:
+    LISTENING_PORT = int(sys.argv[1])
+
+# Pass
+PASS = ''
+
+# CONST
+BUFLEN = 4096 * 4
+TIMEOUT = 3600
+DEFAULT_HOST = '127.0.0.1:109'
+RESPONSE = b'HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: foo\r\n\r\n'
+
+class Server(threading.Thread):
+    def __init__(self, host, port, use_ssl=False):
+        super().__init__()
+        self.running = False
+        self.host = host
+        self.port = port
+        self.use_ssl = use_ssl
+        self.threads = []
+        self.threadsLock = threading.Lock()
+        self.logLock = threading.Lock()
+
+    def run(self):
+        self.soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.soc.settimeout(2)
+        self.soc.bind((self.host, self.port))
+        self.soc.listen(5)
+        self.running = True
+
+        self.ssl_context = None
+        if self.use_ssl:
+            try:
+                import ssl
+                self.ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+                self.ssl_context.load_cert_chain(certfile='/usr/local/etc/v2ray/v2ray.crt', keyfile='/usr/local/etc/v2ray/v2ray.key')
+            except Exception as e:
+                self.printLog(f"Failed to load SSL context: {e}")
+                self.use_ssl = False
+
+        try:
+            while self.running:
+                try:
+                    c, addr = self.soc.accept()
+                    c.setblocking(1)
+                    if self.use_ssl and self.ssl_context:
+                        try:
+                            c = self.ssl_context.wrap_socket(c, server_side=True)
+                        except Exception as ssl_err:
+                            self.printLog(f"SSL handshake failed: {ssl_err}")
+                            c.close()
+                            continue
+                except socket.timeout:
+                    continue
+
+                conn = ConnectionHandler(c, self, addr)
+                self.addConn(conn)
+                conn.start()
+        finally:
+            self.running = False
+            self.soc.close()
+
+    def printLog(self, log):
+        with self.logLock:
+            print(log)
+
+    def addConn(self, conn):
+        with self.threadsLock:
+            if self.running:
+                self.threads.append(conn)
+
+    def removeConn(self, conn):
+        with self.threadsLock:
+            if conn in self.threads:
+                self.threads.remove(conn)
+
+    def close(self):
+        self.running = False
+        with self.threadsLock:
+            for c in list(self.threads):
+                c.close()
+
+class ConnectionHandler(threading.Thread):
+    def __init__(self, socClient, server, addr):
+        super().__init__()
+        self.clientClosed = False
+        self.targetClosed = True
+        self.client = socClient
+        self.client_buffer = b''
+        self.server = server
+        self.addr = addr
+        self.log = f'Connection: {addr}'
+
+    def close(self):
+        if not self.clientClosed:
+            try:
+                self.client.shutdown(socket.SHUT_RDWR)
+            except:
+                pass
+            try:
+                self.client.close()
+            except:
+                pass
+            self.clientClosed = True
+
+        if not self.targetClosed:
+            try:
+                local_port = self.target.getsockname()[1]
+                remove_ws_mapping(local_port)
+            except:
+                pass
+            try:
+                self.target.shutdown(socket.SHUT_RDWR)
+            except:
+                pass
+            try:
+                self.target.close()
+            except:
+                pass
+            self.targetClosed = True
+
+    def run(self):
+        try:
+            self.client.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            self.client.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+            
+            # Read initial buffer
+            self.client.settimeout(1.0)
+            self.client_buffer = self.client.recv(BUFLEN)
+            if not self.client_buffer:
+                return
+            
+            # Handle SOCKS5
+            if self.client_buffer[0] == 5:
+                self.handle_socks5()
+                return
+            
+            # Read remainder of HTTP request if not yet complete
+            try:
+                while True:
+                    if b'ssh-' in self.client_buffer.lower():
+                        break
+                    if b'\r\n\r\n' in self.client_buffer:
+                        self.client.settimeout(0.1)
+                    data = self.client.recv(BUFLEN)
+                    if not data:
+                        break
+                    self.client_buffer += data
+            except socket.timeout:
+                pass
+            finally:
+                self.client.settimeout(TIMEOUT)
+            
+            # Separate HTTP payload and SSH handshake (leftover)
+            ssh_idx = self.client_buffer.lower().find(b'ssh-')
+            if ssh_idx != -1:
+                http_payload = self.client_buffer[:ssh_idx]
+                leftover = self.client_buffer[ssh_idx:]
+            else:
+                http_payload = self.client_buffer
+                leftover = b''
+            
+            # Handle X-Split header
+            split = self.findHeader(self.client_buffer, b'X-Split')
+            if split:
+                try:
+                    self.client.settimeout(0.5)
+                    data = self.client.recv(BUFLEN)
+                    if data:
+                        if ssh_idx != -1:
+                            leftover += data
+                        else:
+                            self.client_buffer += data
+                except:
+                    pass
+                finally:
+                    self.client.settimeout(TIMEOUT)
+            
+            # Determine if request uses CONNECT method
+            is_connect = self.client_buffer.lower().startswith(b'connect')
+            
+            # Parse request_host if there's a CONNECT line
+            request_host = ''
+            for line in self.client_buffer.split(b'\n'):
+                line = line.strip()
+                if line.lower().startswith(b'connect '):
+                    parts = line.split()
+                    if len(parts) >= 2:
+                        request_host = parts[1].decode(errors='ignore')
+                        break
+            
+            # Directly parse Host / X-Real-Host from the entire buffer for maximum payload compatibility
+            hostPort = request_host or self.findHeader(self.client_buffer, b'X-Real-Host') or self.findHeader(self.client_buffer, b'Host') or DEFAULT_HOST
+            passwd = self.findHeader(self.client_buffer, b'X-Pass')
+ 
+            # Determine if request has HTTP headers (not direct SSH)
+            is_http = any(m in self.client_buffer.lower() for m in [b'get ', b'post ', b'connect ', b'http/'])
+            
+            # Check if request is for V2Ray or Nginx backend paths
+            is_v2ray = False
+            if is_http:
+                first_line = self.client_buffer.split(b'\n')[0].decode(errors='ignore').strip()
+                first_line_parts = first_line.split()
+                path = ''
+                if len(first_line_parts) >= 2:
+                    path = first_line_parts[1].lower()
+                for v_path in ['/vmess', '/vless', '/trojan', '/noobz', '/api', '/netdata']:
+                    if path.startswith(v_path):
+                        is_v2ray = True
+                        break
+            
+            if PASS and passwd != PASS:
+                self.client.send(b'HTTP/1.1 400 WrongPass!\r\n\r\n')
+            elif is_v2ray:
+                target_host = '127.0.0.1:2080'
+                self.connect_target(target_host)
+                self.target.sendall(self.client_buffer)
+                self.log += f' - V2RAY {target_host}'
+                self.server.printLog(self.log)
+                self.doCONNECT(ssh_established=True)
+            else:
+                # Force target to localhost to avoid open-proxy abuse while parsing target port
+                _, _, port = hostPort.partition(':')
+                port = port or '109'
+                if port not in ['22', '109', '110', '111', '143', '3303']:
+                    port = '109'
+                target_host = f'127.0.0.1:{port}'
+                
+                # Connect to target SSH
+                self.connect_target(target_host)
+                
+                try:
+                    local_port = self.target.getsockname()[1]
+                    real_ip = self.findHeader(self.client_buffer, b'X-Real-IP') or self.findHeader(self.client_buffer, b'X-Forwarded-For')
+                    if real_ip:
+                        real_ip = real_ip.split(',')[0].strip()
+                    else:
+                        real_ip = self.addr[0]
+                    add_ws_mapping(local_port, real_ip)
+                except:
+                    pass
+                
+                # Send any leftover data to target
+                if leftover:
+                    self.target.sendall(leftover)
+                
+                # Send appropriate response back to client if HTTP request
+                if is_http:
+                    if is_connect:
+                        self.client.sendall(b'HTTP/1.1 200 OK\r\n\r\n')
+                    else:
+                        sec_ws_key = self.findHeader(self.client_buffer, b'Sec-WebSocket-Key')
+                        if sec_ws_key:
+                            magic = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
+                            accept_val = base64.b64encode(hashlib.sha1((sec_ws_key + magic).encode()).digest()).decode()
+                            dyn_response = (
+                                b'HTTP/1.1 101 Switching Protocols\r\n'
+                                b'Upgrade: websocket\r\n'
+                                b'Connection: Upgrade\r\n'
+                                b'Server: rbstv-Proxy\r\n'
+                                b'Sec-WebSocket-Accept: ' + accept_val.encode() + b'\r\n\r\n'
+                            )
+                            self.client.sendall(dyn_response)
+                        else:
+                            self.client.sendall(RESPONSE)
+                
+                # Log and start forwarding
+                self.log += f' - CONNECT {target_host}'
+                self.server.printLog(self.log)
+                self.doCONNECT(ssh_established=(ssh_idx != -1 or not is_http))
+        except Exception as e:
+            self.server.printLog(f'Error: {e}')
+        finally:
+            self.close()
+            self.server.removeConn(self)
+
+    def handle_socks5(self):
+        # SOCKS5 handshake
+        self.client.sendall(b"\x05\x00")  # Version 5, No Authentication Required
+
+        # Request details
+        version, cmd, _, address_type = self.client.recv(4)
+        if cmd != 1:  # Only CONNECT command is supported
+            self.close()
+            return
+
+        # Parse address and port based on address type
+        if address_type == 1:  # IPv4
+            address = socket.inet_ntoa(self.client.recv(4))
+        elif address_type == 3:  # Domain name
+            domain_length = self.client.recv(1)[0]
+            address = self.client.recv(domain_length).decode('utf-8')
+        else:
+            self.close()
+            return
+        port = int.from_bytes(self.client.recv(2), 'big')
+
+        # Limit target host to localhost for security against open-proxy abuse
+        # and validate that the target port matches allowed ports
+        str_port = str(port)
+        if str_port not in ['22', '109', '111', '3303']:
+            port = 109
+        target_host = f"127.0.0.1:{port}"
+
+        self.log += f' - SOCKS5 CONNECT {target_host}'
+        self.connect_target(target_host)
+        self.client.sendall(b"\x05\x00\x00\x01\x00\x00\x00\x00\x00\x00")  # SOCKS5 response
+        self.server.printLog(self.log)
+        self.doCONNECT(ssh_established=True)
+
+    def findHeader(self, head, header):
+        head = head.decode(errors='ignore')
+        header = header.decode(errors='ignore').lower()
+        for line in head.split('\n'):
+            line = line.strip('\r\n ')
+            if line.lower().startswith(header + ':'):
+                return line.split(':', 1)[1].strip()
+        return ''
+
+    def connect_target(self, host):
+        host, _, port = host.partition(':')
+        port = int(port) if port else 443
+        self.target = socket.create_connection((host, port))
+        self.target.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        self.target.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+        self.targetClosed = False
+
+    def doCONNECT(self, ssh_established=False):
+        socs = [self.client, self.target]
+        count = 0
+        error_occurred = False
+        while not error_occurred:
+            count += 1
+            
+            # Check if there is pending decrypted data in SSL socket first
+            client_pending = False
+            try:
+                if hasattr(self.client, 'pending') and self.client.pending() > 0:
+                    client_pending = True
+            except:
+                pass
+            
+            if client_pending:
+                recv = [self.client]
+            else:
+                recv, _, err = select.select(socs, [], socs, 3)
+                if err:
+                    break
+            
+            for in_ in recv:
+                try:
+                    data = in_.recv(BUFLEN)
+                    if data:
+                        (self.client if in_ is self.target else self.target).sendall(data)
+                        count = 0
+                    else:
+                        error_occurred = True
+                        break
+                except:
+                    error_occurred = True
+                    break
+            if count == TIMEOUT:
+                break
+
+def print_usage():
+    print('Usage: proxy.py -p <port>')
+    print('       proxy.py -b <bindAddr> -p <port>')
+    print('       proxy.py -b 0.0.0.0 -p 80')
+
+def parse_args(argv):
+    global LISTENING_ADDR, LISTENING_PORT
+    try:
+        opts, _ = getopt.getopt(argv, "hb:p:", ["bind=", "port="])
+    except getopt.GetoptError:
+        print_usage()
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print_usage()
+            sys.exit()
+        elif opt in ("-b", "--bind"):
+            LISTENING_ADDR = arg
+        elif opt in ("-p", "--port"):
+            LISTENING_PORT = int(arg)
+
+def main():
+    print("\n:-------PythonProxy-------:")
+    print(f"Listening addr: {LISTENING_ADDR}")
+    print(f"Listening port: {LISTENING_PORT}")
+    print(":-------------------------:")
+    
+    # Start default port server (plaintext)
+    server = Server(LISTENING_ADDR, LISTENING_PORT, use_ssl=False)
+    server.start()
+    
+    # If default port is 700, also start the SSL server on port 701 for TLS multiplexing
+    ssl_server = None
+    if LISTENING_PORT == 700:
+        print(f"Listening SSL port: 701")
+        ssl_server = Server(LISTENING_ADDR, 701, use_ssl=True)
+        ssl_server.start()
+        
+    try:
+        while True:
+            time.sleep(2)
+    except KeyboardInterrupt:
+        print('Stopping...')
+        server.close()
+        if ssl_server:
+            ssl_server.close()
+
+if __name__ == '__main__':
+    parse_args(sys.argv[1:])
+    main()

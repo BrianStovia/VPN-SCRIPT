@@ -1,0 +1,251 @@
+#!/usr/bin/env python3
+import os
+import sys
+import re
+import subprocess
+import signal
+
+def get_ss_connections():
+    """
+    Parses ss -tnp and returns:
+    - connections: list of dicts with {pid, local_ip, local_port, remote_ip, remote_port, proc}
+    - stunnel_map: dict of stunnel_local_port -> client_real_ip
+    """
+    connections = []
+    stunnel_map = {}
+    
+    try:
+        res = subprocess.run(['ss', '-tnp'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        lines = res.stdout.decode('utf-8', errors='ignore').splitlines()
+    except Exception as e:
+        return connections, stunnel_map
+
+    conn_re = re.compile(r'^\S+\s+\S+\s+\S+\s+(\[?[\d\.:a-fA-F]+\]?):(\d+)\s+(\[?[\d\.:a-fA-F]+\]?):(\d+)\s+users:\((.+)\)')
+    pid_re = re.compile(r'"([^"]+)",pid=(\d+)')
+    
+    stunnel_groups = {}
+    
+    for line in lines:
+        m = conn_re.search(line.strip())
+        if not m:
+            continue
+        local_ip, local_port, remote_ip, remote_port = m.groups()[:4]
+        users_str = m.group(5)
+        
+        local_ip = local_ip.replace('[', '').replace(']', '')
+        remote_ip = remote_ip.replace('[', '').replace(']', '')
+        
+        pids = pid_re.findall(users_str)
+        for proc_name, pid_str in pids:
+            pid = int(pid_str)
+            conn_info = {
+                'pid': pid,
+                'local_ip': local_ip,
+                'local_port': int(local_port),
+                'remote_ip': remote_ip,
+                'remote_port': int(remote_port),
+                'proc': proc_name
+            }
+            connections.append(conn_info)
+            
+            if 'stunnel' in proc_name.lower():
+                if pid not in stunnel_groups:
+                    stunnel_groups[pid] = []
+                stunnel_groups[pid].append(conn_info)
+                
+    for pid, sockets in stunnel_groups.items():
+        public_ip = None
+        local_ports = []
+        for s in sockets:
+            if s['remote_ip'] in ['127.0.0.1', '::1', 'localhost'] and s['remote_port'] in [22, 111, 109, 3303]:
+                local_ports.append(s['local_port'])
+            elif s['remote_ip'] not in ['127.0.0.1', '::1', 'localhost']:
+                public_ip = s['remote_ip']
+        if public_ip and local_ports:
+            for lp in local_ports:
+                stunnel_map[lp] = public_ip
+                
+    return connections, stunnel_map
+
+def get_ws_mappings():
+    ws_map = {}
+    if os.path.exists('/dev/shm/ws-ports.txt'):
+        try:
+            with open('/dev/shm/ws-ports.txt', 'r') as f:
+                for line in f:
+                    parts = line.strip().split(':', 1)
+                    if len(parts) == 2:
+                        port, ip = parts
+                        try:
+                            ws_map[int(port)] = ip
+                        except:
+                            pass
+        except Exception:
+            pass
+    return ws_map
+
+def get_passwd_limits():
+    limits = {}
+    try:
+        with open('/etc/passwd', 'r') as f:
+            for line in f:
+                parts = line.strip().split(':')
+                if len(parts) >= 5:
+                    username = parts[0]
+                    gecos = parts[4]
+                    m = re.search(r'limit[=:](\d+)', gecos)
+                    if m:
+                        limits[username] = int(m.group(1))
+    except Exception:
+        pass
+    return limits
+
+def get_active_sessions(connections, stunnel_map, ws_map):
+    sessions = []
+    dropbear_logins = {}
+    
+    try:
+        res = subprocess.run(['journalctl', '-u', 'dropbear', '-n', '500', '--no-pager'], stdout=subprocess.PIPE, check=True)
+        log_lines = res.stdout.decode('utf-8', errors='ignore').splitlines()
+    except Exception:
+        log_lines = []
+        
+    if not log_lines and os.path.exists('/var/log/auth.log'):
+        try:
+            with open('/var/log/auth.log', 'r') as f:
+                log_lines = f.readlines()[-500:]
+        except Exception:
+            pass
+            
+    db_login_re = re.compile(r'dropbear\[(\d+)\]:.*Password auth succeeded for \'([^\']+)\' from ([\d\.]+):(\d+)')
+    db_exit_re = re.compile(r'dropbear\[(\d+)\]:.*Exit \(([^\)]+)\)')
+    
+    for line in log_lines:
+        m = db_login_re.search(line)
+        if m:
+            pid = int(m.group(1))
+            user = m.group(2)
+            ip = m.group(3)
+            port = int(m.group(4))
+            dropbear_logins[pid] = (user, ip, port)
+        else:
+            me = db_exit_re.search(line)
+            if me:
+                pid = int(me.group(1))
+                if pid in dropbear_logins:
+                    del dropbear_logins[pid]
+                    
+    for pid, (user, ip, port) in list(dropbear_logins.items()):
+        if not os.path.exists(f'/proc/{pid}'):
+            continue
+        real_ip = ip
+        if ip in ['127.0.0.1', '::1', 'localhost']:
+            if port in ws_map:
+                real_ip = ws_map[port]
+            elif port in stunnel_map:
+                real_ip = stunnel_map[port]
+        sessions.append({
+            'pid': pid,
+            'username': user,
+            'real_ip': real_ip,
+            'type': 'Dropbear'
+        })
+        
+    for conn in connections:
+        if conn['proc'] in ['sshd', 'sshd-session']:
+            pid = conn['pid']
+            try:
+                stat_info = os.stat(f'/proc/{pid}')
+                import pwd
+                username = pwd.getpwuid(stat_info.st_uid).pw_name
+                if username in ['root', 'sshd', 'nobody'] or stat_info.st_uid < 1000:
+                    continue
+                if any(s['pid'] == pid for s in sessions):
+                    continue
+                real_ip = conn['remote_ip']
+                if real_ip in ['127.0.0.1', '::1', 'localhost']:
+                    port = conn['remote_port']
+                    if port in ws_map:
+                        real_ip = ws_map[port]
+                    elif port in stunnel_map:
+                        real_ip = stunnel_map[port]
+                sessions.append({
+                    'pid': pid,
+                    'username': username,
+                    'real_ip': real_ip,
+                    'type': 'OpenSSH'
+                })
+            except Exception:
+                pass
+                
+    return sessions
+
+def check_logins(sessions):
+    user_ips = {}
+    for s in sessions:
+        user = s['username']
+        ip = s['real_ip']
+        if user not in user_ips:
+            user_ips[user] = set()
+        user_ips[user].add(ip)
+        
+    print("\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m")
+    print("     =[ SSH User Login ]=         ")
+    print("\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m")
+    for user, ips in user_ips.items():
+        print(f"\033[33;1mUser\033[32;1m  : {user}")
+        print(f"\033[33;1mLogin\033[32;1m : {len(ips)} IP Login ({', '.join(ips)})")
+        print("\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m")
+    print(f"{len(user_ips)} User Online")
+    print("\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m")
+
+def enforce_limits(sessions, limits, default_limit=2):
+    user_sessions = {}
+    for s in sessions:
+        user = s['username']
+        if user not in user_sessions:
+            user_sessions[user] = []
+        user_sessions[user].append(s)
+        
+    for user, sess_list in user_sessions.items():
+        limit = limits.get(user, default_limit)
+        
+        ip_sessions = {}
+        for s in sess_list:
+            ip = s['real_ip']
+            if ip not in ip_sessions:
+                ip_sessions[ip] = []
+            ip_sessions[ip].append(s)
+            
+        unique_ips = list(ip_sessions.keys())
+        if len(unique_ips) <= limit:
+            continue
+            
+        unique_ips.sort(key=lambda ip: min(s['pid'] for s in ip_sessions[ip]))
+        
+        ips_to_keep = unique_ips[:limit]
+        ips_to_kill = unique_ips[limit:]
+        
+        print(f"User '{user}' exceeds limit ({len(unique_ips)}/{limit} IPs). Keeping: {ips_to_keep}. Killing: {ips_to_kill}.")
+        for ip in ips_to_kill:
+            for s in ip_sessions[ip]:
+                pid = s['pid']
+                print(f"  Killing PID {pid} ({s['type']} connection from {ip})")
+                try:
+                    os.kill(pid, signal.SIGKILL)
+                except Exception as e:
+                    print(f"  Error killing PID {pid}: {e}")
+
+def main():
+    connections, stunnel_map = get_ss_connections()
+    ws_map = get_ws_mappings()
+    sessions = get_active_sessions(connections, stunnel_map, ws_map)
+    limits = get_passwd_limits()
+    
+    if len(sys.argv) > 1 and sys.argv[1] == '--check':
+        check_logins(sessions)
+    else:
+        enforce_limits(sessions, limits)
+
+if __name__ == "__main__":
+    main()
