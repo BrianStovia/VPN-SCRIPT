@@ -9,7 +9,7 @@ green="\e[1;32m"
 NC="\e[0m"
 
 # Define Hosting
-hosting="https://raw.githubusercontent.com/BrianStovia/Sws-ro/main"
+hosting="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main"
 
 # Get directory where the script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -16,7 +16,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Define Hosting
-hosting="https://raw.githubusercontent.com/BrianStovia/Sws-ro/main"
+hosting="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main"
 
 # Get directory where the script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
