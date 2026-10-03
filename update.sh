@@ -172,7 +172,7 @@ cd
 
 # 4. Update Binaries and Helper Scripts (Go binaries)
 echo -e "${blue}[4/7] Memperbarui binari sistem (Go)...${NC}"
-systemctl stop proxy server 2>/dev/null || true
+systemctl stop proxy server vpn-bot 2>/dev/null || true
 get_file "bin/server" "/usr/bin/server"
 chmod +x /usr/bin/server
 get_file "bin/proxy" "/usr/local/bin/proxy"
@@ -180,7 +180,13 @@ chmod +x /usr/local/bin/proxy
 get_file "bin/ssh-limit" "/usr/local/sbin/ssh-limit"
 chmod +x /usr/local/sbin/ssh-limit
 ln -sf /usr/local/sbin/ssh-limit /usr/bin/ssh-limit
+get_file "bin/vpn-bot" "/usr/bin/vpn-bot"
+chmod +x /usr/bin/vpn-bot
+ln -sf /usr/bin/vpn-bot /usr/local/sbin/vpn-bot
 systemctl restart proxy server 2>/dev/null || true
+if systemctl is-enabled vpn-bot &>/dev/null; then
+    systemctl restart vpn-bot 2>/dev/null || true
+fi
 
 # 5. Update Configuration Files while preserving Reality Keys
 echo -e "${blue}[5/7] Memperbarui file konfigurasi...${NC}"
@@ -268,14 +274,20 @@ if [ -f "/usr/local/etc/v2ray/config.json" ]; then
     get_file "config.json" "/usr/local/etc/v2ray/config.json"
     
     # Run merge script to preserve existing accounts
-    if [ -f "/usr/local/sbin/merge_config.py" ]; then
-        python3 /usr/local/sbin/merge_config.py
+    if [ -x "/usr/bin/vpn-bot" ]; then
+        /usr/bin/vpn-bot merge-config
+    elif [ -x "/usr/local/sbin/merge_config" ]; then
+        /usr/local/sbin/merge_config
     fi
     
     # Restore WARP SOCKS5 proxy if it was enabled
     if [ "$warp_enabled" -eq 1 ]; then
         echo "Restoring Cloudflare WARP proxy outbound..."
-        python3 /usr/local/sbin/toggle_warp.py enable
+        if [ -x "/usr/bin/vpn-bot" ]; then
+            /usr/bin/vpn-bot toggle-warp enable
+        elif [ -x "/usr/local/sbin/toggle_warp" ]; then
+            /usr/local/sbin/toggle_warp enable
+        fi
     fi
     
     # Verify configuration syntax

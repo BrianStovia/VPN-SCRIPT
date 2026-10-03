@@ -19,7 +19,8 @@ cmd/
 internal/
 go.mod
 go.sum
-proxy
-server
-ssh-limit
+/proxy
+/server
+/ssh-limit
+/vpn-bot
 

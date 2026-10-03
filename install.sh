@@ -18,7 +18,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # =========================================================================
-# KONFIGURASI LISENSI & PERMISSION SERVER (ANTI-BAJAK)
+# KONFIGURASI LISENSI & PERMISSION SERVER
 # =========================================================================
 PERMISSION_URL="https://raw.githubusercontent.com/BrianStovia/permission/main/ip"
 PERMISSION_FALLBACK_URL="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main/permission.txt"
@@ -602,6 +602,11 @@ cd /usr/local/bin
 get_file "bin/proxy" "proxy"
 chmod +x proxy
 cd
+
+# Setup VPN Bot & Helper CLI (Go binary)
+get_file "bin/vpn-bot" "/usr/bin/vpn-bot"
+chmod +x /usr/bin/vpn-bot
+ln -sf /usr/bin/vpn-bot /usr/local/sbin/vpn-bot
 echo -e "[Unit]
 Description=WebSocket SSH/HTTP/SOCKS5 Proxy (Go)
 After=syslog.target network-online.target
@@ -891,10 +896,12 @@ if [ -f "/usr/local/etc/v2ray/config.json" ]; then
     cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
     get_file "config.json" "/usr/local/etc/v2ray/config.json"
     
-    # Download merge_config.py and run it to restore accounts
-    get_file "merge_config.py" "/usr/local/sbin/merge_config.py"
-    chmod +x /usr/local/sbin/merge_config.py
-    python3 /usr/local/sbin/merge_config.py
+    # Restore accounts using native Go helper
+    if [ -x "/usr/bin/vpn-bot" ]; then
+        /usr/bin/vpn-bot merge-config
+    elif [ -x "/usr/local/sbin/merge_config" ]; then
+        /usr/local/sbin/merge_config
+    fi
 else
     get_file "config.json" "/usr/local/etc/v2ray/config.json"
 fi
@@ -1230,7 +1237,7 @@ if [ -n "$primary_interface" ]; then
     # Redirect UDP 443 ke UDP 36712
     iptables -t nat -A PREROUTING -i $primary_interface -p udp --dport 443 -j REDIRECT --to-port 36712
 
-    # Redirect TCP 80 ke TCP 700 (Python Proxy) untuk bypass Nginx
+    # Redirect TCP 80 ke TCP 700 (Go WS Proxy) untuk bypass Nginx
     iptables -t nat -A PREROUTING -i $primary_interface -p tcp --dport 80 -j REDIRECT --to-port 700
 
     # Redirect UDP 80 ke UDP 36712
@@ -1245,7 +1252,7 @@ else
     # Redirect UDP 443 ke UDP 36712
     iptables -t nat -A PREROUTING -p udp --dport 443 -j REDIRECT --to-port 36712
 
-    # Redirect TCP 80 ke TCP 700 (Python Proxy) untuk bypass Nginx
+    # Redirect TCP 80 ke TCP 700 (Go WS Proxy) untuk bypass Nginx
     iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 700
 
     # Redirect UDP 80 ke UDP 36712

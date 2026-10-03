@@ -59,6 +59,7 @@ for svc in "${services[@]}"; do
 done
 
 # Kill any lingering processes
+pkill -f vpn-bot 2>/dev/null
 pkill -f vpn_telegram_bot 2>/dev/null
 pkill -f server &>/dev/null
 pkill -f proxy &>/dev/null
@@ -197,6 +198,9 @@ rm -rf /etc/netdata /var/lib/netdata /var/log/netdata /usr/share/netdata /etc/ng
 files=(
     "/usr/bin/server"
     "/usr/local/bin/proxy"
+    "/usr/bin/vpn-bot"
+    "/usr/local/sbin/vpn-bot"
+    "/etc/telegram_sellers.json"
     "/usr/local/bin/badvpn"
     "/usr/bin/noobzvpns"
     "/usr/local/sbin/add-ssh"

@@ -17,14 +17,16 @@
 
 ## 🆕 Apa yang Baru — Go Edition
 
-Versi ini telah **sepenuhnya dimigrasi ke Go** untuk performa lebih tinggi dan stabilitas lebih baik:
+Versi ini telah **100% dimigrasi ke Go (Full Go Ecosystem)** untuk performa maksimal, latensi ultra-rendah, dan penghematan resource VPS:
 
 | Komponen | Sebelumnya | Sekarang |
 | :--- | :--- | :--- |
 | **API Server** | Python 3 (`server`) | Go binary (`bin/server`) |
 | **WebSocket Proxy** | Python 3 (`proxy`) | Go binary (`bin/proxy`) |
 | **SSH Limiter** | Python 3 (`ssh-limit`) | Go binary (`bin/ssh-limit`) |
-| **Runtime** | Python 3 wajib terinstall | ❌ Tidak perlu Python |
+| **Telegram Bot Panel** | Python 3 (`vpn_telegram_bot.py`) | Go binary (`bin/vpn-bot`) |
+| **Config & WARP Helper** | Python 3 (`merge_config.py`, `toggle_warp.py`) | Go binary (`vpn-bot merge/warp`) |
+| **Runtime Dependencies** | Python 3 wajib terinstall | ❌ **100% Bebas Python (Zero Dependency)** |
 | **Network Stability** | Manual | Auto watchdog + networkd config |
 
 ### ✅ Keuntungan Go Binary
