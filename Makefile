@@ -3,9 +3,14 @@ GOOS      ?= linux
 GOARCH    ?= amd64
 CGO_ENABLED = 0
 
-.PHONY: all server proxy ssh-limit clean
+.PHONY: all server proxy ssh-limit clean compile-shc secure
 
 all: server proxy ssh-limit
+
+compile-shc:
+	@bash build-shc.sh
+
+secure: all compile-shc
 
 server:
 	@mkdir -p $(BINARY_DIR)
@@ -24,3 +29,4 @@ ssh-limit:
 
 clean:
 	rm -rf $(BINARY_DIR)
+

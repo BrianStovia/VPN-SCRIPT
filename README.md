@@ -138,13 +138,39 @@ cd VPN-SCRIPT
 # Build semua binary (Linux amd64)
 make all
 
-# Atau manual
-GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-s -w" -o bin/server ./cmd/server
-GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-s -w" -o bin/proxy ./cmd/proxy
-GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-s -w" -o bin/ssh-limit ./cmd/ssh-limit
+# Kompilasi & enkripsi semua skrip shell dengan SHC (Anti-Bajak)
+make compile-shc
+
+# Atau build binary + SHC sekaligus
+make secure
 ```
 
 ---
+
+## 🔒 Sistem Keamanan & Anti-Bajak (Anti-Theft)
+
+Autoscript ini dilengkapi sistem proteksi ganda agar tidak dapat dibajak atau dicuri:
+
+### 1. 🛡️ Otorisasi IP Whitelist & Expired Date
+Installer dan menu dilindungi verifikasi lisensi remote sebelum script dijalankan:
+* **Format Database Lisensi (`permission.txt` / GitHub Raw):**
+  ```text
+  ### <NAMA_CLIENT> <YYYY-MM-DD> <IP_VPS>
+  ```
+  *Contoh:*
+  ```text
+  ### AdminDev 2035-12-31 127.0.0.1
+  ### UserPremium 2026-12-31 103.150.12.34
+  ```
+* **Mekanisme Validasi**:
+  * Jika IP VPS tidak terdaftar $\rightarrow$ instalasi langsung dibatalkan (**Access Denied**) dan file installer otomatis dihapus.
+  * Jika tanggal lisensi sudah lewat $\rightarrow$ instalasi ditolak (**License Expired**).
+  * Di VPS yang sudah terinstall, service **`license-check.timer`** mengecek status lisensi secara berkala. Jika IP dicabut dari GitHub, seluruh tunneling service otomatis dimatikan.
+
+### 2. 🔐 Kompilasi SHC (Shell Script Compiler to ELF Binary)
+* Semua script shell Bash dikompilasi menjadi **binary ELF stripped** native menggunakan `shc`.
+* Source code asli Bash tidak lagi tersimpan dalam bentuk teks terbuka di folder `/usr/local/sbin`.
+* Jika pengguna lain membuka file dengan `cat` atau `nano`, mereka hanya akan melihat kode biner mesin terenkripsi, sehingga source code script Anda aman dari penyalinan atau perubahan merek (rebranding).
 
 ## 💻 Sistem Operasi yang Didukung
 

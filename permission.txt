@@ -1,0 +1,18 @@
+# ==============================================================================
+# AUTOSCRIPT PERMISSION DATABASE (IP WHITELIST & LICENSE EXPIRATION)
+# Repository: BrianStovia/VPN-SCRIPT
+# ==============================================================================
+# Format Baris:
+#   ### <NAMA_CLIENT> <EXPIRED_DATE: YYYY-MM-DD> <IP_VPS>
+#
+# Aturan:
+#   1. Format tanggal WAJIB YYYY-MM-DD (Contoh: 2026-12-31).
+#   2. Pisahkan setiap kolom dengan spasi.
+#   3. Baris diawali tanda # diabaikan (komentar).
+#
+# CONTOH PENAMBAHAN LISENSI:
+# ### BrianStovia 2035-12-31 127.0.0.1
+# ### UserPremium 2026-12-31 103.150.12.34
+# ==============================================================================
+
+### AdminDev 2035-12-31 127.0.0.1

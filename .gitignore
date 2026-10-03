@@ -8,3 +8,8 @@
 # OS
 .DS_Store
 Thumbs.db
+
+# Workspace / build temporary folders
+main_zip_extracted/
+*.bin
+*.x.c

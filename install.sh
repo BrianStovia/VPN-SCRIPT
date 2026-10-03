@@ -6,7 +6,156 @@ export SUDO_USER=""
 
 # Define Colors
 green="\e[1;32m"
+red="\e[1;31m"
+yellow="\e[1;33m"
+blue="\e[1;34m"
 NC="\e[0m"
+
+# Root Check
+if [ "$EUID" -ne 0 ]; then
+    echo -e "${red}Error: Silakan jalankan script ini sebagai root (sudo bash install.sh)${NC}"
+    exit 1
+fi
+
+# =========================================================================
+# KONFIGURASI LISENSI & PERMISSION SERVER (ANTI-BAJAK)
+# =========================================================================
+PERMISSION_URL="https://raw.githubusercontent.com/BrianStovia/permission/main/ip"
+PERMISSION_FALLBACK_URL="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main/permission.txt"
+ADMIN_TELEGRAM="@BrianStovia"
+ADMIN_WHATSAPP="https://wa.me/628XXXXXXXXXX"
+
+check_permission() {
+    clear
+    echo -e "${yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${green}               MEMERIKSA LISENSI IP VPS...                    ${NC}"
+    echo -e "${yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+
+    # Deteksi IP Publik VPS melalui multi-resolver
+    local my_ip=""
+    my_ip=$(curl -sS --max-time 5 https://ipv4.icanhazip.com 2>/dev/null | tr -d '[:space:]')
+    [ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 http://checkip.amazonaws.com 2>/dev/null | tr -d '[:space:]')
+    [ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 https://api.ipify.org 2>/dev/null | tr -d '[:space:]')
+    [ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 https://ipinfo.io/ip 2>/dev/null | tr -d '[:space:]')
+
+    if [ -z "$my_ip" ]; then
+        echo -e "${red}[ERROR] Gagal mendeteksi IP publik VPS. Periksa koneksi internet!${NC}"
+        exit 1
+    fi
+
+    # Ambil Database Whitelist dari remote repository
+    local cache_buster="?v=$(date +%s)"
+    local raw_data=""
+    raw_data=$(curl -sS --max-time 8 "${PERMISSION_URL}${cache_buster}" 2>/dev/null)
+    if [ -z "$raw_data" ] || echo "$raw_data" | grep -qi "404: Not Found"; then
+        raw_data=$(curl -sS --max-time 8 "${PERMISSION_FALLBACK_URL}${cache_buster}" 2>/dev/null)
+    fi
+
+    if [ -z "$raw_data" ] || echo "$raw_data" | grep -qi "404: Not Found"; then
+        clear
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e "${red}           GAGAL MENGHUBUNGI SERVER LISENSI                  ${NC}"
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e " Server perizinan lisensi tidak dapat dijangkau saat ini."
+        echo -e " Silakan hubungi Administrator: ${yellow}${ADMIN_TELEGRAM}${NC}"
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        exit 1
+    fi
+
+    # Cari IP VPS di dalam database perizinan
+    local match_line=""
+    match_line=$(echo "$raw_data" | grep -E "(^|[[:space:]])${my_ip}([[:space:]]|$)" | head -n 1)
+
+    if [ -z "$match_line" ]; then
+        clear
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e "${red}               AKSES DITOLAK / PERMISSION DENIED             ${NC}"
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e " IP VPS Anda : ${yellow}${my_ip}${NC}"
+        echo -e " Status      : ${red}BELUM TERDAFTAR (UNAUTHORIZED)${NC}"
+        echo -e ""
+        echo -e " IP VPS ini belum memiliki izin untuk menginstal autoscript ini."
+        echo -e " Script ini dilindungi hak cipta & sistem anti-bajak."
+        echo -e ""
+        echo -e " Silakan hubungi Administrator untuk mendaftarkan IP Anda:"
+        echo -e " • Telegram : ${green}${ADMIN_TELEGRAM}${NC}"
+        echo -e " • WhatsApp : ${green}${ADMIN_WHATSAPP}${NC}"
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        rm -f "${BASH_SOURCE[0]}" 2>/dev/null
+        exit 1
+    fi
+
+    # Parsing Nama Klien & Tanggal Kedaluwarsa
+    local client_name="User"
+    local exp_date="2099-12-31"
+
+    if echo "$match_line" | grep -q "^###"; then
+        client_name=$(echo "$match_line" | awk '{print $2}')
+        exp_date=$(echo "$match_line" | awk '{print $3}')
+    else
+        if [ "$(echo "$match_line" | awk '{print $1}')" = "$my_ip" ]; then
+            exp_date=$(echo "$match_line" | awk '{print $2}')
+            client_name=$(echo "$match_line" | awk '{print $3}')
+        fi
+    fi
+
+    [ -z "$client_name" ] && client_name="Premium User"
+    [ -z "$exp_date" ] && exp_date="2099-12-31"
+
+    # Validasi Tanggal Expired
+    local today=$(date +%Y-%m-%d)
+    local today_sec=$(date -d "$today" +%s 2>/dev/null || date +%s)
+    local exp_sec=$(date -d "$exp_date" +%s 2>/dev/null || echo 0)
+    local days_left=999
+
+    if [ "$exp_sec" -ne 0 ]; then
+        days_left=$(( (exp_sec - today_sec) / 86400 ))
+    fi
+
+    if [ "$days_left" -lt 0 ]; then
+        clear
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e "${red}             LISENSI KEDALUWARSA / LICENSE EXPIRED           ${NC}"
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e " Client Name : ${yellow}${client_name}${NC}"
+        echo -e " IP VPS      : ${yellow}${my_ip}${NC}"
+        echo -e " Expired On  : ${red}${exp_date}${NC}"
+        echo -e " Keterangan  : ${red}Kedaluwarsa $(( days_left * -1 )) hari yang lalu${NC}"
+        echo -e ""
+        echo -e " Masa aktif lisensi Anda telah habis. Silakan hubungi Admin"
+        echo -e " untuk perpanjangan masa aktif:"
+        echo -e " Telegram: ${green}${ADMIN_TELEGRAM}${NC}"
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        rm -f "${BASH_SOURCE[0]}" 2>/dev/null
+        exit 1
+    fi
+
+    clear
+    echo -e "${green}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${green}             LISENSI TERVERIFIKASI / ACCESS GRANTED           ${NC}"
+    echo -e "${green}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e " Client Name : ${blue}${client_name}${NC}"
+    echo -e " IP VPS      : ${blue}${my_ip}${NC}"
+    echo -e " Expired On  : ${green}${exp_date} (${days_left} Hari Tersisa)${NC}"
+    echo -e "${green}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    sleep 2
+
+    # Simpan Informasi Lisensi Lokal
+    mkdir -p /etc/vpn-script
+    cat > /etc/vpn-script/license.conf << EOF
+CLIENT_NAME="${client_name}"
+EXP_DATE="${exp_date}"
+IP="${my_ip}"
+PERMISSION_URL="${PERMISSION_URL}"
+PERMISSION_FALLBACK_URL="${PERMISSION_FALLBACK_URL}"
+ADMIN_TELEGRAM="${ADMIN_TELEGRAM}"
+EOF
+    chmod 600 /etc/vpn-script/license.conf
+}
+
+# Jalankan Pemeriksaan Lisensi
+check_permission
+
 
 # Define Hosting
 hosting="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main"
@@ -205,6 +354,7 @@ apt install zip -y
 apt install unzip -y
 apt install bc -y
 apt install speedtest-cli -y
+apt install shc build-essential file -y 2>/dev/null || true
 
 # Ensure standard systemd system users exist and have correct permissions to prevent 217/USER boot failures
 systemd-sysusers 2>/dev/null || true
@@ -368,6 +518,27 @@ get_file "main.zip" "m.zip"
 unzip -o m.zip
 chmod +x *
 rm -f m.zip
+
+# Proteksi Anti-Bajak: Kompilasi script shell ke binary ELF stripped menggunakan SHC
+if command -v shc &>/dev/null; then
+    echo "Mengamankan script sistem dengan SHC (Compile ke native ELF binary)..."
+    for s_file in /usr/local/sbin/* /usr/local/sbin/api/*; do
+        if [ -f "$s_file" ] && [ ! -L "$s_file" ]; then
+            case "$s_file" in
+                *.py|*.json|*.toml|*.conf|*.txt|*.key|*.crt|*.pub) continue ;;
+            esac
+            if file "$s_file" 2>/dev/null | grep -qi "shell script"; then
+                shc -r -f "$s_file" -o "${s_file}.bin" 2>/dev/null
+                if [ -f "${s_file}.bin" ]; then
+                    strip "${s_file}.bin" 2>/dev/null || true
+                    mv -f "${s_file}.bin" "$s_file"
+                    rm -f "${s_file}.x.c" 2>/dev/null
+                    chmod 755 "$s_file"
+                fi
+            fi
+        fi
+    done
+fi
 
 # Symlink all custom sbin scripts to /usr/bin to ensure they are always in PATH
 for file in /usr/local/sbin/*; do
@@ -893,6 +1064,104 @@ END
 systemctl daemon-reload
 systemctl enable ssh-limit.timer
 systemctl start ssh-limit.timer
+
+# Setup Periodic License Check Watchdog (Anti-Bajak)
+cat > /usr/local/sbin/license-check << 'EOF'
+#!/usr/bin/env bash
+CONFIG_FILE="/etc/vpn-script/license.conf"
+if [ ! -f "$CONFIG_FILE" ]; then
+    exit 0
+fi
+
+source "$CONFIG_FILE"
+if [ -z "$PERMISSION_URL" ]; then
+    exit 0
+fi
+
+my_ip=""
+my_ip=$(curl -sS --max-time 5 https://ipv4.icanhazip.com 2>/dev/null | tr -d '[:space:]')
+[ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 http://checkip.amazonaws.com 2>/dev/null | tr -d '[:space:]')
+[ -z "$my_ip" ] && my_ip="$IP"
+
+cache_buster="?v=$(date +%s)"
+raw_data=$(curl -sS --max-time 10 "${PERMISSION_URL}${cache_buster}" 2>/dev/null)
+if [ -z "$raw_data" ] && [ -n "$PERMISSION_FALLBACK_URL" ]; then
+    raw_data=$(curl -sS --max-time 10 "${PERMISSION_FALLBACK_URL}${cache_buster}" 2>/dev/null)
+fi
+
+if [ -z "$raw_data" ] || echo "$raw_data" | grep -qi "404: Not Found"; then
+    exit 0
+fi
+
+match_line=$(echo "$raw_data" | grep -E "(^|[[:space:]])${my_ip}([[:space:]]|$)" | head -n 1)
+
+revoke_license() {
+    local reason="$1"
+    logger -t "vpn-license" "License revoked: $reason"
+    systemctl stop v2ray proxy server dropbear noobzvpns badvpn badvpn-7100 badvpn-7200 badvpn-7300 udp-custom client-sldns 2>/dev/null || true
+    systemctl disable v2ray proxy server dropbear noobzvpns badvpn badvpn-7100 badvpn-7200 badvpn-7300 udp-custom client-sldns 2>/dev/null || true
+    cat > /etc/issue.net << END
+*****************************************************
+* AKSES DINONAKTIFKAN: LISENSI AUTOSCRIPT HABIS    *
+* Silakan hubungi Admin: ${ADMIN_TELEGRAM:-@BrianStovia}             *
+*****************************************************
+END
+}
+
+if [ -z "$match_line" ]; then
+    revoke_license "IP tidak ditemukan di database izin"
+    exit 1
+fi
+
+exp_date=""
+if echo "$match_line" | grep -q "^###"; then
+    exp_date=$(echo "$match_line" | awk '{print $3}')
+else
+    if [ "$(echo "$match_line" | awk '{print $1}')" = "$my_ip" ]; then
+        exp_date=$(echo "$match_line" | awk '{print $2}')
+    fi
+fi
+
+if [ -n "$exp_date" ]; then
+    today=$(date +%Y-%m-%d)
+    today_sec=$(date -d "$today" +%s 2>/dev/null || date +%s)
+    exp_sec=$(date -d "$exp_date" +%s 2>/dev/null || echo 0)
+    if [ "$exp_sec" -ne 0 ] && [ "$exp_sec" -lt "$today_sec" ]; then
+        revoke_license "Masa aktif lisensi telah habis ($exp_date)"
+        exit 1
+    fi
+fi
+
+exit 0
+EOF
+chmod 755 /usr/local/sbin/license-check
+
+cat > /etc/systemd/system/license-check.service << EOF
+[Unit]
+Description=VPN Autoscript License Periodic Validator
+After=network.target network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/license-check
+EOF
+
+cat > /etc/systemd/system/license-check.timer << EOF
+[Unit]
+Description=Daily License Verification Timer
+
+[Timer]
+OnBootSec=10min
+OnCalendar=*-*-* 00:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+
+systemctl daemon-reload
+systemctl enable license-check.timer
+systemctl start license-check.timer
 
 # Setup SlowDNS
 echo "Installing and configuring SlowDNS..."

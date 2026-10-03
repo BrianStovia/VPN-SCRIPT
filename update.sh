@@ -15,6 +15,71 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+# =========================================================================
+# KONFIGURASI LISENSI & PERMISSION SERVER (ANTI-BAJAK)
+# =========================================================================
+PERMISSION_URL="https://raw.githubusercontent.com/BrianStovia/permission/main/ip"
+PERMISSION_FALLBACK_URL="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main/permission.txt"
+ADMIN_TELEGRAM="@BrianStovia"
+
+check_permission() {
+    local my_ip=""
+    my_ip=$(curl -sS --max-time 5 https://ipv4.icanhazip.com 2>/dev/null | tr -d '[:space:]')
+    [ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 http://checkip.amazonaws.com 2>/dev/null | tr -d '[:space:]')
+    [ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 https://api.ipify.org 2>/dev/null | tr -d '[:space:]')
+
+    if [ -z "$my_ip" ]; then
+        echo -e "${red}[ERROR] Gagal mendeteksi IP publik VPS.${NC}"
+        exit 1
+    fi
+
+    local cache_buster="?v=$(date +%s)"
+    local raw_data=""
+    raw_data=$(curl -sS --max-time 8 "${PERMISSION_URL}${cache_buster}" 2>/dev/null)
+    if [ -z "$raw_data" ] || echo "$raw_data" | grep -qi "404: Not Found"; then
+        raw_data=$(curl -sS --max-time 8 "${PERMISSION_FALLBACK_URL}${cache_buster}" 2>/dev/null)
+    fi
+
+    if [ -z "$raw_data" ] || echo "$raw_data" | grep -qi "404: Not Found"; then
+        echo -e "${red}[ERROR] Gagal menghubungi server lisensi.${NC}"
+        exit 1
+    fi
+
+    local match_line=""
+    match_line=$(echo "$raw_data" | grep -E "(^|[[:space:]])${my_ip}([[:space:]]|$)" | head -n 1)
+
+    if [ -z "$match_line" ]; then
+        clear
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e "${red}               AKSES DITOLAK / PERMISSION DENIED             ${NC}"
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e " IP VPS ${my_ip} tidak terdaftar dalam izin resmi."
+        echo -e " Hubungi Admin: ${ADMIN_TELEGRAM}"
+        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        exit 1
+    fi
+
+    local exp_date="2099-12-31"
+    if echo "$match_line" | grep -q "^###"; then
+        exp_date=$(echo "$match_line" | awk '{print $3}')
+    else
+        if [ "$(echo "$match_line" | awk '{print $1}')" = "$my_ip" ]; then
+            exp_date=$(echo "$match_line" | awk '{print $2}')
+        fi
+    fi
+
+    local today=$(date +%Y-%m-%d)
+    local today_sec=$(date -d "$today" +%s 2>/dev/null || date +%s)
+    local exp_sec=$(date -d "$exp_date" +%s 2>/dev/null || echo 0)
+
+    if [ "$exp_sec" -ne 0 ] && [ "$exp_sec" -lt "$today_sec" ]; then
+        echo -e "${red}[ERROR] Masa aktif lisensi Anda telah habis (${exp_date}).${NC}"
+        exit 1
+    fi
+}
+
+check_permission
+
 # Define Hosting
 hosting="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main"
 
@@ -67,6 +132,28 @@ if [ $? -eq 0 ]; then
     unzip -o m.zip &>/dev/null
     chmod +x *
     rm -f m.zip
+
+    # Proteksi Anti-Bajak: Kompilasi script shell ke binary ELF stripped menggunakan SHC
+    if command -v shc &>/dev/null; then
+        echo -e "${blue}Mengamankan script sbin dengan SHC...${NC}"
+        for s_file in /usr/local/sbin/* /usr/local/sbin/api/*; do
+            if [ -f "$s_file" ] && [ ! -L "$s_file" ]; then
+                case "$s_file" in
+                    *.py|*.json|*.toml|*.conf|*.txt|*.key|*.crt|*.pub) continue ;;
+                esac
+                if file "$s_file" 2>/dev/null | grep -qi "shell script"; then
+                    shc -r -f "$s_file" -o "${s_file}.bin" 2>/dev/null
+                    if [ -f "${s_file}.bin" ]; then
+                        strip "${s_file}.bin" 2>/dev/null || true
+                        mv -f "${s_file}.bin" "$s_file"
+                        rm -f "${s_file}.x.c" 2>/dev/null
+                        chmod 755 "$s_file"
+                    fi
+                fi
+            fi
+        done
+    fi
+
     # Symlink custom scripts to /usr/bin
     for file in /usr/local/sbin/*; do
         if [ -f "$file" ]; then

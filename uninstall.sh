@@ -42,6 +42,8 @@ services=(
     "warp-svc"
     "net-watchdog"
     "net-watchdog.timer"
+    "license-check"
+    "license-check.timer"
 )
 
 echo -e "${blue}[1/8] Menghentikan dan menonaktifkan layanan...${NC}"
@@ -170,6 +172,7 @@ folders=(
     "/usr/local/etc/v2ray"
     "/etc/noobzvpns"
     "/etc/api"
+    "/etc/vpn-script"
     "/root/.acme.sh"
     "/etc/stunnel"
 )
@@ -207,6 +210,9 @@ files=(
     "/usr/local/sbin/v2ray-watchdog"
     "/usr/local/sbin/update"
     "/usr/bin/update"
+    "/usr/local/sbin/license-check"
+    "/etc/systemd/system/license-check.service"
+    "/etc/systemd/system/license-check.timer"
     "/etc/issue.net"
     "/root/.ip"
     "/etc/udev/rules.d/60-txqueuelen.rules"
