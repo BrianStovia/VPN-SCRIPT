@@ -219,7 +219,14 @@ if [ -f "/etc/nginx/nginx.conf" ]; then
     fi
     get_file "nginx.conf" "/etc/nginx/nginx.conf"
     sed -i "s|server_name .*;|server_name $domain;|" /etc/nginx/nginx.conf
+    # Remove IPv6 listen directives if VPS kernel does not support IPv6
+    if [ ! -f /proc/net/if_inet6 ]; then
+        sed -i '/listen \[::\]/d' /etc/nginx/nginx.conf 2>/dev/null || true
+    fi
 fi
+
+# Ensure web root exists
+mkdir -p /var/www/html /etc/nginx
 
 # Ensure Netdata Basic Auth password file exists
 if [ ! -f "/etc/nginx/.htpasswd" ]; then
@@ -231,6 +238,19 @@ if [ ! -f "/etc/nginx/.htpasswd" ]; then
     netdata_pass="admin$(echo "$domain" | tr -d '.')"
     pass_hash=$(openssl passwd -1 "$netdata_pass")
     echo "admin:$pass_hash" > /etc/nginx/.htpasswd
+fi
+
+# Verify SSL certificate integrity for Nginx/V2Ray (prevent Nginx crash if cert is empty/corrupt)
+if [ ! -s "/usr/local/etc/v2ray/v2ray.crt" ] || [ ! -s "/usr/local/etc/v2ray/v2ray.key" ] || ! grep -q "BEGIN CERTIFICATE" /usr/local/etc/v2ray/v2ray.crt 2>/dev/null; then
+    echo -e "${blue}Sertifikat SSL kosong/rusak. Membuat sertifikat pemulihan...${NC}"
+    mkdir -p /usr/local/etc/v2ray
+    rm -f /usr/local/etc/v2ray/v2ray.key /usr/local/etc/v2ray/v2ray.crt
+    openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 \
+        -subj "/C=ID/ST=Jakarta/L=Jakarta/O=FNProject/CN=${domain:-domain}" \
+        -keyout /usr/local/etc/v2ray/v2ray.key \
+        -out /usr/local/etc/v2ray/v2ray.crt &>/dev/null
+    chmod 644 /usr/local/etc/v2ray/v2ray.crt 2>/dev/null || true
+    chmod 600 /usr/local/etc/v2ray/v2ray.key 2>/dev/null || true
 fi
 
 # Update Xray config.json

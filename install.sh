@@ -951,14 +951,17 @@ echo -e "${domain}" > /usr/local/etc/v2ray/domain
     fi
     /root/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc
 
-    # Fallback to self-signed certificate if acme.sh failed to create the certificate
-    if [ ! -f "/usr/local/etc/v2ray/v2ray.crt" ] || [ ! -f "/usr/local/etc/v2ray/v2ray.key" ]; then
-        echo "SSL certificate not found. Generating self-signed certificate as fallback..."
+    # Fallback to self-signed certificate if acme.sh failed to create the certificate or file is empty/corrupt
+    if [ ! -s "/usr/local/etc/v2ray/v2ray.crt" ] || [ ! -s "/usr/local/etc/v2ray/v2ray.key" ] || ! grep -q "BEGIN CERTIFICATE" /usr/local/etc/v2ray/v2ray.crt 2>/dev/null; then
+        echo "SSL certificate not found or invalid. Generating self-signed certificate as fallback..."
         mkdir -p /usr/local/etc/v2ray
+        rm -f /usr/local/etc/v2ray/v2ray.key /usr/local/etc/v2ray/v2ray.crt
         openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 \
             -subj "/C=ID/ST=Jakarta/L=Jakarta/O=FNProject/CN=${domain}" \
             -keyout /usr/local/etc/v2ray/v2ray.key \
-            -out /usr/local/etc/v2ray/v2ray.crt 2>/dev/null
+            -out /usr/local/etc/v2ray/v2ray.crt &>/dev/null
+        chmod 644 /usr/local/etc/v2ray/v2ray.crt 2>/dev/null || true
+        chmod 600 /usr/local/etc/v2ray/v2ray.key 2>/dev/null || true
     fi
 
 cd /root
