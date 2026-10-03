@@ -100,49 +100,23 @@ Versi ini telah **sepenuhnya dimigrasi ke Go** untuk performa lebih tinggi dan s
 
 ---
 
-## 🗂️ Struktur Go Source Code
+## 🗂️ Struktur Repositori & Binari Sistem
+
+Repository ini mendistribusikan binari native Linux amd64 stripped (*pre-built*) untuk stabilitas, performa maksimal, dan keamanan source code:
 
 ```
-sws-go/
-├── bin/                        # Pre-built Linux amd64 binaries
+VPN-SCRIPT/
+├── bin/                        # Pre-built Linux amd64 binaries (Stripped & Optimized)
 │   ├── server                  # API Server binary
 │   ├── proxy                   # WebSocket/HTTP/SOCKS5 proxy binary
 │   └── ssh-limit               # SSH session limiter binary
-├── cmd/
-│   ├── server/main.go          # Entrypoint API server
-│   ├── proxy/main.go           # Entrypoint proxy (-b addr -p port)
-│   └── ssh-limit/main.go       # Entrypoint ssh-limit (--check | enforce)
-├── internal/
-│   ├── server/server.go        # Bearer auth, script execution, logging
-│   ├── proxy/
-│   │   ├── proxy.go            # TCP listener & TLS support
-│   │   ├── handler.go          # HTTP CONNECT, WebSocket, V2Ray routing
-│   │   └── socks5.go           # SOCKS5 protocol handler
-│   └── sshlimit/
-│       ├── ssconn.go           # Parser ss -tnp & stunnel mapping
-│       ├── sessions.go         # Dropbear + OpenSSH session detection
-│       └── enforce.go          # Limit enforcement & display
-├── go.mod
-├── Makefile
-├── install.sh
-├── update.sh
-└── uninstall.sh
-```
-
-### Build dari Source
-```bash
-# Clone repo
-git clone https://github.com/BrianStovia/VPN-SCRIPT.git
-cd VPN-SCRIPT
-
-# Build semua binary (Linux amd64)
-make all
-
-# Kompilasi & enkripsi semua skrip shell dengan SHC (Anti-Bajak)
-make compile-shc
-
-# Atau build binary + SHC sekaligus
-make secure
+├── main.zip                    # Script & menu sistem terkompresi
+├── install.sh                  # One-line installer dengan proteksi lisensi IP
+├── update.sh                   # Script pembaruan autoscript
+├── uninstall.sh                # Script uninstaller bersih
+├── permission.txt              # Database template whitelist lisensi IP
+├── build-shc.sh                # Compiler SHC untuk skrip shell
+└── Makefile                    # Otomasi build & kompilasi
 ```
 
 ---

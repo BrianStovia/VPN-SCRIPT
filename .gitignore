@@ -13,3 +13,13 @@ Thumbs.db
 main_zip_extracted/
 *.bin
 *.x.c
+
+# Private Source Code (Protected from Public GitHub)
+cmd/
+internal/
+go.mod
+go.sum
+proxy
+server
+ssh-limit
+
