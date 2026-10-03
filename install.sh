@@ -1041,6 +1041,11 @@ get_file "update.sh" "/usr/local/sbin/update"
 chmod +x /usr/local/sbin/update
 ln -sf /usr/local/sbin/update /usr/bin/update
 
+# Setup Uninstall Script
+get_file "uninstall.sh" "/usr/local/sbin/uninstall"
+chmod +x /usr/local/sbin/uninstall
+ln -sf /usr/local/sbin/uninstall /usr/bin/uninstall
+
 
 # Systemd Service and Timer for ssh-limit
 cat > /etc/systemd/system/ssh-limit.service << END

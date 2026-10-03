@@ -181,10 +181,16 @@ wget -q -O update.sh https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/ma
 
 ## 🗑️ Cara Uninstall Autoscript
 
-Jika ingin menghapus seluruh instalasi autoscript dari VPS:
+Jika ingin menghapus seluruh instalasi autoscript dari VPS, cukup ketik:
 
 ```bash
 uninstall
+```
+
+*(atau jalankan perintah one-line di bawah ini):*
+
+```bash
+wget -q -O uninstall.sh https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main/uninstall.sh && chmod +x uninstall.sh && ./uninstall.sh
 ```
 
 ---

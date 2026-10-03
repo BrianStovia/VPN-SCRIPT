@@ -126,8 +126,9 @@ fi
 echo -e "${blue}[2/7] Mengunduh script installer & uninstaller baru...${NC}"
 get_file "install.sh" "/usr/local/sbin/install.sh"
 chmod +x /usr/local/sbin/install.sh
-get_file "uninstall.sh" "/usr/local/sbin/uninstall.sh"
-chmod +x /usr/local/sbin/uninstall.sh
+get_file "uninstall.sh" "/usr/local/sbin/uninstall"
+chmod +x /usr/local/sbin/uninstall
+ln -sf /usr/local/sbin/uninstall /usr/bin/uninstall
 
 # 3. Update Menu Scripts
 echo -e "${blue}[3/7] Memperbarui menu sbin...${NC}"
