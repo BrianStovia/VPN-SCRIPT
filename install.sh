@@ -163,11 +163,12 @@ hosting="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main"
 # Get directory where the script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Function to get file from local workspace
+# Function to get file from local workspace or hosting atomically
 get_file() {
     local source_name="$1"
     local dest_path="$2"
     local cache_buster="?v=$(date +%s)"
+    local tmp_path="${dest_path}.tmp_dl"
     
     if [ -f "${SCRIPT_DIR}/${source_name}" ]; then
         echo "Using local file ${source_name}..."
@@ -177,15 +178,19 @@ get_file() {
         cp "${SCRIPT_DIR}/file/${source_name}" "${dest_path}"
     else
         echo "Downloading ${source_name} from hosting..."
-        wget -q -O "${dest_path}" "${hosting}/${source_name}${cache_buster}"
-        if [ $? -ne 0 ]; then
+        rm -f "${tmp_path}"
+        wget -q -O "${tmp_path}" "${hosting}/${source_name}${cache_buster}"
+        if [ $? -ne 0 ] || [ ! -s "${tmp_path}" ]; then
             echo "Downloading ${source_name} from hosting/file..."
-            wget -q -O "${dest_path}" "${hosting}/file/${source_name}${cache_buster}"
-            if [ $? -ne 0 ]; then
+            wget -q -O "${tmp_path}" "${hosting}/file/${source_name}${cache_buster}"
+            if [ $? -ne 0 ] || [ ! -s "${tmp_path}" ]; then
+                rm -f "${tmp_path}"
                 echo "Error: Failed to download ${source_name} from hosting!"
                 exit 1
             fi
         fi
+        chmod 755 "${tmp_path}" 2>/dev/null || true
+        mv -f "${tmp_path}" "${dest_path}"
     fi
 }
 

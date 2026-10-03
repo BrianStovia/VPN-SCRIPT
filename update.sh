@@ -86,19 +86,25 @@ hosting="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main"
 # Get directory where the script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Function to get file from local workspace
+# Function to get file from hosting atomically (prevents Text file busy ETXTBSY on running binaries)
 get_file() {
     local source_name="$1"
     local dest_path="$2"
     local cache_buster="?v=$(date +%s)"
-    wget -q -O "${dest_path}" "${hosting}/${source_name}${cache_buster}"
-    if [ $? -ne 0 ]; then
-        wget -q -O "${dest_path}" "${hosting}/file/${source_name}${cache_buster}"
-        if [ $? -ne 0 ]; then
+    local tmp_path="${dest_path}.tmp_dl"
+
+    rm -f "${tmp_path}"
+    wget -q -O "${tmp_path}" "${hosting}/${source_name}${cache_buster}"
+    if [ $? -ne 0 ] || [ ! -s "${tmp_path}" ]; then
+        wget -q -O "${tmp_path}" "${hosting}/file/${source_name}${cache_buster}"
+        if [ $? -ne 0 ] || [ ! -s "${tmp_path}" ]; then
+            rm -f "${tmp_path}"
             echo -e "${red}Error: Gagal mengunduh ${source_name} dari hosting!${NC}"
             return 1
         fi
     fi
+    chmod 755 "${tmp_path}" 2>/dev/null || true
+    mv -f "${tmp_path}" "${dest_path}"
     return 0
 }
 
@@ -165,6 +171,7 @@ cd
 
 # 4. Update Binaries and Helper Scripts (Go binaries)
 echo -e "${blue}[4/7] Memperbarui binari sistem (Go)...${NC}"
+systemctl stop proxy server 2>/dev/null || true
 get_file "bin/server" "/usr/bin/server"
 chmod +x /usr/bin/server
 get_file "bin/proxy" "/usr/local/bin/proxy"
@@ -172,6 +179,7 @@ chmod +x /usr/local/bin/proxy
 get_file "bin/ssh-limit" "/usr/local/sbin/ssh-limit"
 chmod +x /usr/local/sbin/ssh-limit
 ln -sf /usr/local/sbin/ssh-limit /usr/bin/ssh-limit
+systemctl restart proxy server 2>/dev/null || true
 
 # 5. Update Configuration Files while preserving Reality Keys
 echo -e "${blue}[5/7] Memperbarui file konfigurasi...${NC}"
