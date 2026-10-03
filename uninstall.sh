@@ -1,240 +1,63 @@
 #!/usr/bin/env bash
+# ====================================================================
+# SECURE AUTOSCRIPT LOADER — AUTOSCRIPT UNINSTALLER
+# Copyright (c) 2026 BrianStovia. All rights reserved.
+#
+# NOTICE: This file is compiled & obfuscated to protect proprietary
+# system configurations and licensing controls. Any modification or
+# unauthorized reverse engineering will render this script invalid.
+# ====================================================================
+[ -z "$BASH_VERSION" ] && exec bash "$0" "$@"
+set +x 2>/dev/null
+export BASH_XTRACEFD=/dev/null 2>/dev/null || true
+trap 'exit 1' DEBUG 2>/dev/null || true
 
-# Define Colors
-red="\e[1;31m"
-green="\e[1;32m"
-yellow="\e[1;33m"
-blue="\e[1;34m"
-NC="\e[0m"
+__0x6c2e=$(cat <<'__0x8b3f__' | tr 'QAZWSXEDCRFVTGBYHNUJMIKOLPqazwsxedcrfvtgbyhnujmikolp0987654321-_' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/' | (base64 -d 2>/dev/null || openssl base64 -d 2>/dev/null) | (gunzip -c 2>/dev/null || gzip -d -c 2>/dev/null)
+D6uCQQQQQQQZ_-Nq386amND_VfWiTFzLJOCbI3VfRE6YBwUI7MjHgT-kff1RSXWV0LbNv8NCntk9
+2Ls-H5-kJ9Rk_-1hPMiy7LwsdJjLtdfBP6LpY5VWYYymtXepgDT5NVtEBaOVxh_xskJgmBQULqhS
+TnaxT2dsWj3rm-TxRuxobG-VWFCuFEGY8qQH4hLeJJoyVdCuZZsszWvGx632wp_RwCgdZieZJZFA
+KrAFmO4YV-QwWC6m7n6-DkZNZZY62QB6Rzy-WkQQk4MZerQ6-tFH7I0Lb2lxLzLXOISRg4ce0g-o
+bsDqQPzzVT5yNDthD53LdFgMM0efv1PNCHF3xDn05OR4G2cgmBMBrim1AxsEdeFy4xwh28aB7i73
+O__2O_li2VJtMVhsw1W-iZ0ZoEMSP6vJKIZWCGeUdH4ji62k-Mk1WtWtvQLhEPopU-zZLLPtpMB0
+_P3Gi392fhOYLF0vtUmOP1GQbtYM0sFgX0wJ_GRE7K4FDkgJRSluM7XAtIB89nV5c3k6Db7qyYS8
+qIFNyXVpx4l9jQKAMstHXa1cDdyvIaeh-JVc2nq08Cyv2O01GnU0votv50dVP4oVySNoMiFvwKML
+HuXNBtCXh2l6bMLJmk5nbUC79CIVyhCmKmA6OTIB2AZvNNR4CBffviRY_MVKzjBW01836-DyA_eP
+PaNS4acDWMLvoZcIyZiDX56c4CPFFbTeFWRcbHpLwHdzsf7X4n_3l6s3kH_QIELDO6WwKCwo4QNk
+U8rb-AhAfT2RNksWC-29rD2zTvkYPURSDsTqBQwQtrLsxaDn2Z6CefSvOz9vxqVt4i1Hhz1SYqR9
+KLxU5pJ3V2lnNso--9dsY_sPlRJSnYV-pbMQFrxeTHcGAlRjICrK-unJF22tZ2ennt5kf_iNbzWC
+0YrranEuTRuKvzl0JgxkhnVwCPAI5Q5tKPu3-V34tckxtDSQ9ocnGzCuWU0nQQg-obKYpIqlr2jf
+yphouBQZ28IdfZwoVzvplfziIcDaSX06pQxvx6w53CG2oBQs0UpZ-0ct6w5DuCn1YjRvnYzNpvPj
+x2fMvk2NDo2tYjvYiQVpxqNJcG5DuQ3xs6K4WjmDlrwe8-Gjth0GkT0lzoj97_tqENo53hA5ziHx
+S1xLazZyeNJXKSvcMZrFubFa-CRab7DQjxTCPmS44q40UaYUhSuTvsKkKyXyk8GhGd-5wEeKGTUO
+N0-6AhTUd_QICbTqEZ5bCdo2AOhpeuwxjBDUkwEpm2wY22Tl2KDPMjIlirUqBRWMQJtDh-mV49_s
+igv1-NTHWjuqeEdkbHPZtXaEkzgRATegmV66x791TO0WdWdXMu3Lu2PjRY_EFNB8p5UJ5l-Bo3_q
+gDM7J0s3iAlwrg6JV7xB-Bu4KP_l8q46YymTKf34-gdeot_YfkzIx7T8DEJlQKj-fTKDnBoAce1L
+i0niBal-iDn3PviOFWOpaWh1mDnJEvkQqenPdqhd2zeOnS18eQlowC7kC7HYFc3Kr-ZfwbcRAPzn
+t94oychBhKJKQ_3I8PjODNA30bNLm9JEdLgpP_zfYzJg17_EbKoo9CQ7z6iACEMFXICojDTmK_3M
+w54K5YW3qjxPq-xoD0vrW_XpqjX_VLUxGhOlYqh0-2rV9u3UoUS-83UFKW6VLZhHUg1UJaxEVRNE
+UMWyWB_zhP5vLLpgqZoxnunNbXXEMURyEuiHFBgbiAq_N2K4yxXsEAIWfT1apotrvAuKrXPTnV1m
+zDe21ZhE3WS0yUiD2yv2CfZuEX_kfWhmyE9g5kYpsQOA16f933GvxR-jb5-5GrnDm2GzmSx9_M35
+lTCgGw_lRH_5nevy4F1QeIANqO2-bcI6ho2HUB_p5zXnK1eaOR8VWXyDrziuDnxiRT_VC1Ru1mbz
+HcMOYSyTuIya8xz2p35SPVt7FePL3rIu9KuNDEmO_g_8TPmdXqNDsN7fGpCYzIfjPGF8iOLyDS1E
+f1V7vibm-sYNg_LMx8io_DCEMm0y_1Guwga9-coo4OM_l_J1N0-5OhFoHGSsr01RXTP3Wip5aEyd
+EwBH8ZMw3pgbn9NFGYWsc36xztuJWZU4-0zOc7UG9ctW5xv8Ggm9vJDGpfENxGLmj21SgKRu-lJr
+2_NXms0karA0lhGrtcRpVhgPyRrxvaQiBh3HDcQOUrQ01xojjCu2u7qDat0fIYYEiUddsnQj4rtG
+7vjF8snnywU8Ng13pYaWfypASe9rWBllsU7VsgcGl9xtOga1lj7yiDeoi4Bv_C6GTC9t9z7FCydy
+VnU8tfP-CpUVUtwOe-e4fOZPGIcndn67weDqbSOy4mcNoyYY2NaWLw4KVx4U8texf65Od2V62yEd
+L-VFekTtQ0C8_bAEXuhSKE_8kGsi6SlZ_N4FRer-5mL_YTf-PiiIljsondEEq5yEy0IHMMOk2aGV
+qnQcyNbcVt-DkwRyqm9GsrjiGqtFe9Bp096nRu1uGG3VCq7KxajK88oiJ1vPjBrrLbGYIufwfpaa
+-sKu88OzoerEcF0Iqbu1I636L1Hm_fB2-7NamlUZo1ojKw7GhH7j4mq7PK39pve7Jcq3yAVGhTTj
+8pnCjMEwWkwwJqgtL2CsOqpm96wFiGkfK0rTwKuYkDI-O8VW5lYcar2gtFAQEqJMDq8oa8hRwsFl
+95gy42WfgH00W2cgQIkvRiCtPMrAHGGkNUB02BHO3Ow8Fi6CF0NjCxHgeRVjXGZ96eptAmtFlkeL
+qyHTPzrNYm7LfS-aE3FtF7UkbJCZd0PJU8IM86tywcNZAph9r8ll9gnocQOytorROkEhVcbMn9ye
+YlszHHXEIcTld1qNMDQCdMnLHvZW5CLq7KpLXoYJoA150yTD8aN3-i1DW2pIKpVT0Uly5HCLn7LO
+LZerFcE3vg37B71dJi-5kqrx-02QQQW__ozvma8BCHQQ
+__0x8b3f__
+)
 
-# Check if run as root
-if [ "$EUID" -ne 0 ]; then
-    echo -e "${red}Error: Silakan jalankan script ini sebagai root (sudo bash uninstall.sh)${NC}"
+if [ -z "$__0x6c2e" ]; then
+    echo "Error: Failed to decompress execution payload. Integrity check failed." >&2
     exit 1
 fi
 
-clear
-echo -e "${yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${green}                 Uninstalling Autoscript...                  ${NC}"
-echo -e "${yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-
-# 1. Stop and Disable Services
-services=(
-    "vpn-bot"
-    "netdata"
-    "server"
-    "proxy"
-    "udp-custom"
-    "badvpn"
-    "badvpn-7100"
-    "badvpn-7200"
-    "badvpn-7300"
-    "noobzvpns"
-    "danted"
-    "microsocks"
-    "nginx"
-    "sslh"
-    "v2ray"
-    "dropbear"
-    "stunnel4"
-    "dnstt"
-    "client-sldns"
-    "warp-svc"
-    "net-watchdog"
-    "net-watchdog.timer"
-    "license-check"
-    "license-check.timer"
-)
-
-echo -e "${blue}[1/8] Menghentikan dan menonaktifkan layanan...${NC}"
-for svc in "${services[@]}"; do
-    if systemctl is-active --quiet "$svc" 2>/dev/null; then
-        echo -e "  - Menghentikan ${svc}..."
-        systemctl stop "$svc" &>/dev/null
-    fi
-    if systemctl is-enabled --quiet "$svc" 2>/dev/null; then
-        echo -e "  - Menonaktifkan ${svc}..."
-        systemctl disable "$svc" &>/dev/null
-    fi
-done
-
-# Kill any lingering processes
-pkill -f vpn-bot 2>/dev/null
-pkill -f vpn_telegram_bot 2>/dev/null
-pkill -f server &>/dev/null
-pkill -f proxy &>/dev/null
-pkill -f udp-custom &>/dev/null
-pkill -f badvpn &>/dev/null
-pkill -f noobzvpns &>/dev/null
-pkill -f sslh &>/dev/null
-
-# 2. Remove Systemd Service Files
-echo -e "${blue}[2/8] Menghapus file systemd service...${NC}"
-service_files=(
-    "/etc/systemd/system/vpn-bot.service"
-    "/etc/systemd/system/server.service"
-    "/etc/systemd/system/proxy.service"
-    "/etc/systemd/system/udp-custom.service"
-    "/etc/systemd/system/noobzvpns.service"
-    "/etc/systemd/system/badvpn.service"
-    "/etc/systemd/system/badvpn-7100.service"
-    "/etc/systemd/system/badvpn-7200.service"
-    "/etc/systemd/system/badvpn-7300.service"
-    "/etc/systemd/system/microsocks.service"
-    "/etc/systemd/system/dnstt.service"
-    "/etc/systemd/system/client-sldns.service"
-    "/etc/systemd/system/net-watchdog.service"
-    "/etc/systemd/system/net-watchdog.timer"
-)
-
-for file in "${service_files[@]}"; do
-    if [ -f "$file" ]; then
-        rm -f "$file"
-    fi
-done
-systemctl daemon-reload
-
-# 3. Revert iptables Rules
-echo -e "${blue}[3/8] Menghapus aturan iptables...${NC}"
-primary_interface=$(ip route | grep default | awk '{print $5}')
-if [ -n "$primary_interface" ]; then
-    iptables -t nat -D PREROUTING -i $primary_interface -p tcp --dport 443 -j REDIRECT --to-port 2443 2>/dev/null
-    iptables -t nat -D PREROUTING -i $primary_interface -p udp --dport 443 -j REDIRECT --to-port 36712 2>/dev/null
-    iptables -t nat -D PREROUTING -i $primary_interface -p tcp --dport 80 -j REDIRECT --to-port 2080 2>/dev/null
-    iptables -t nat -D PREROUTING -i $primary_interface -p udp --dport 80 -j REDIRECT --to-port 36712 2>/dev/null
-    iptables -t nat -D PREROUTING -i $primary_interface -p udp --dport 53 -j REDIRECT --to-port 5300 2>/dev/null
-fi
-iptables -t nat -D PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 2443 2>/dev/null
-iptables -t nat -D PREROUTING -p udp --dport 443 -j REDIRECT --to-port 36712 2>/dev/null
-iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 2080 2>/dev/null
-iptables -t nat -D PREROUTING -p udp --dport 80 -j REDIRECT --to-port 36712 2>/dev/null
-iptables -t nat -D PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5300 2>/dev/null
-iptables -D INPUT -p udp --dport 5300 -j ACCEPT 2>/dev/null
-if [ -f "/etc/iptables/rules.v4" ]; then
-    iptables-save > /etc/iptables/rules.v4
-fi
-
-# 4. Remove Symlinks and Commands in PATH
-echo -e "${blue}[4/8] Menghapus shortcut menu dan script di /usr/bin/...${NC}"
-if [ -d "/usr/local/sbin" ]; then
-    for file in /usr/local/sbin/*; do
-        if [ -f "$file" ]; then
-            name=$(basename "$file")
-            rm -f "/usr/bin/$name"
-        fi
-    done
-fi
-
-# 5. Clean profiles and Cron entries
-echo -e "${blue}[5/8] Membersihkan profil pengguna dan crontab...${NC}"
-# Remove menu from .profile
-if [ -f "/root/.profile" ]; then
-    sed -i '/menu/d' /root/.profile
-fi
-
-# Remove PATH modifications
-if [ -f "/etc/profile" ]; then
-    sed -i '/PATH.*usr\/local\/sbin/d' /etc/profile
-fi
-if [ -f "/root/.profile" ]; then
-    sed -i '/PATH.*usr\/local\/sbin/d' /root/.profile
-fi
-
-# Remove cron jobs
-if [ -f "/etc/crontab" ]; then
-    sed -i '/access.log/d' /etc/crontab
-    sed -i '/xp/d' /etc/crontab
-    sed -i '/v2ray-watchdog/d' /etc/crontab
-fi
-systemctl restart cron 2>/dev/null
-
-# 6. Revert SSHD configurations
-echo -e "${blue}[6/8] Memulihkan konfigurasi SSH...${NC}"
-if [ -f "/etc/ssh/sshd_config" ]; then
-    # Clean custom ports and configs
-    sed -i '/Port 3303/d' /etc/ssh/sshd_config
-    sed -i '/Port 109/d' /etc/ssh/sshd_config
-    sed -i '/UseDNS no/d' /etc/ssh/sshd_config
-    sed -i '/GSSAPIAuthentication no/d' /etc/ssh/sshd_config
-    sed -i '/Ciphers aes128-gcm/d' /etc/ssh/sshd_config
-    sed -i '/MACs hmac-sha2/d' /etc/ssh/sshd_config
-    sed -i '/Banner \/etc\/issue.net/d' /etc/ssh/sshd_config
-    
-    # Restore default SSH configurations
-    systemctl restart ssh 2>/dev/null
-    systemctl restart sshd 2>/dev/null
-fi
-
-# 7. Remove directories and binary files
-echo -e "${blue}[7/8] Menghapus file dan folder konfigurasi...${NC}"
-folders=(
-    "/usr/local/sbin/api"
-    "/etc/udp"
-    "/usr/local/etc/v2ray"
-    "/etc/noobzvpns"
-    "/etc/api"
-    "/etc/vpn-script"
-    "/root/.acme.sh"
-    "/etc/stunnel"
-)
-
-for folder in "${folders[@]}"; do
-    if [ -d "$folder" ]; then
-        echo "  - Menghapus folder ${folder}..."
-        rm -rf "$folder"
-    fi
-done
-
-# Run Netdata uninstaller if present
-if [ -f "/usr/libexec/netdata/netdata-uninstaller.sh" ]; then
-    echo "  - Menjalankan Netdata uninstaller..."
-    /usr/libexec/netdata/netdata-uninstaller.sh --yes --force &>/dev/null || true
-elif [ -f "/etc/netdata/netdata-uninstaller.sh" ]; then
-    echo "  - Menjalankan Netdata uninstaller..."
-    /etc/netdata/netdata-uninstaller.sh --yes --force &>/dev/null || true
-fi
-rm -rf /etc/netdata /var/lib/netdata /var/log/netdata /usr/share/netdata /etc/nginx/.htpasswd
-
-files=(
-    "/usr/bin/server"
-    "/usr/local/bin/proxy"
-    "/usr/bin/vpn-bot"
-    "/usr/local/sbin/vpn-bot"
-    "/etc/telegram_sellers.json"
-    "/usr/local/bin/badvpn"
-    "/usr/bin/noobzvpns"
-    "/usr/local/sbin/add-ssh"
-    "/usr/local/sbin/bot-menu"
-    "/usr/local/sbin/menu"
-    "/usr/local/sbin/menu-ssh"
-    "/usr/local/sbin/ssh-limit"
-    "/usr/bin/ssh-limit"
-    "/usr/local/sbin/net-watchdog"
-    "/usr/local/sbin/xp"
-    "/usr/local/sbin/v2ray-watchdog"
-    "/usr/local/sbin/update"
-    "/usr/bin/update"
-    "/usr/local/sbin/license-check"
-    "/etc/systemd/system/license-check.service"
-    "/etc/systemd/system/license-check.timer"
-    "/etc/issue.net"
-    "/root/.ip"
-    "/etc/udev/rules.d/60-txqueuelen.rules"
-)
-
-for file in "${files[@]}"; do
-    if [ -f "$file" ]; then
-        echo "  - Menghapus file ${file}..."
-        rm -f "$file"
-    fi
-done
-
-# 8. Purge installed packages (Optional, keeps core packages to avoid breaking dependencies)
-echo -e "${blue}[8/8] Menghapus paket yang terpasang...${NC}"
-apt-get purge -y sslh dropbear dante-server microsocks stunnel4 squid netdata speedtest-cli cloudflare-warp &>/dev/null
-apt-get autoremove -y &>/dev/null
-
-echo -e "${yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${green}         Autoscript berhasil di-uninstall dengan bersih!      ${NC}"
-echo -e "${yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-exit 0
+eval "$__0x6c2e"

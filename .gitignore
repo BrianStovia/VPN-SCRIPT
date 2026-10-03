@@ -23,4 +23,5 @@ go.sum
 /server
 /ssh-limit
 /vpn-bot
+raw/
 

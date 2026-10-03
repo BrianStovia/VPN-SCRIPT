@@ -1,1344 +1,233 @@
 #!/usr/bin/env bash
+# ====================================================================
+# SECURE AUTOSCRIPT LOADER — AUTOSCRIPT INSTALLER
+# Copyright (c) 2026 BrianStovia. All rights reserved.
+#
+# NOTICE: This file is compiled & obfuscated to protect proprietary
+# system configurations and licensing controls. Any modification or
+# unauthorized reverse engineering will render this script invalid.
+# ====================================================================
+[ -z "$BASH_VERSION" ] && exec bash "$0" "$@"
+set +x 2>/dev/null
+export BASH_XTRACEFD=/dev/null 2>/dev/null || true
+trap 'exit 1' DEBUG 2>/dev/null || true
 
+__0x6c2e=$(cat <<'__0x8b3f__' | tr 'QAZWSXEDCRFVTGBYHNUJMIKOLPqazwsxedcrfvtgbyhnujmikolp0987654321-_' 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/' | (base64 -d 2>/dev/null || openssl base64 -d 2>/dev/null) | (gunzip -c 2>/dev/null || gzip -d -c 2>/dev/null)
+D6uCQQQQQQQZ_-l14OCaBaCk-iulem-HOwPLl3c6UxFcDiLPUhRjDfuMVlt9sp47dkXKeUUqNqZ4
+eARXVoXp7tEs6W3qYTfGVVKlUXXjw_sz4M18UEHITySQSfAmUWp4ydnlbWbcjCnyVLkHg5PV2j2r
+BYTkZtAkz769iAt0-lQLrRL-6dlHT2zIYbMXZccdSk6dwOSQYDNPmLJixAqCAF5yKNnxBN6JcmET
+sUpe5wCfkRe8nN_om_h7d685IU6X8C8-9-O7RxL2jbesDzyDCl_S0LTr-qA3yn3K5hqUYtTZphaL
+tPIVPQpikGyy77JBVaQyddh2_oaSXGGlZHQQB9TEGePn58BQ7z_jCEWAZHlCd8qCkf_CH9N-6S5Q
+xQESSmA6dZqCHZAn8PYjIJ0EdDFAYF_Zy_u3D3jggl9JkN0NMZ-OofHJ9_oqYoVPt4iml24nt75n
+0CEVphWwDOJeTxJq_ziBLGZ54uFe7x--7x_F1Ua6dpx1c4L9XzVgR1IheAqIZNDJzANlDWcTZfoX
+oKDp4tvQSA0CwfjH9zxAgDABEF7BSqXI6vuPvZ1aXosgnaT7ikJ7138mYJrnw7nOEgwUI0OzZqjz
+qy9xwnnW4_PX-9K_wwt0_yhZrv-_xw84DnN4iqJ8AqnTzxIy6_fY2L_cGMzl8JZyPK2xYmydw-JS
+KKSopz8x__OY__gx-W_W9ftr9ZJ-WGtxl_Pvm115T8rXxGgykxs1HqIUeLFxGqr_T_yVG0umxeVY
+BRS10HjDDygRWbS51yQOSycDgcA8eWgpanXdDL25lCY5zfd2jLJFP_napy6JAd3LxQZ8YMw7jcAp
+WTzHzUpoa62hoSX0cr6HO06MqDoOwxXjvLqsA51QAEZ3uYimdYiCkUxiw_z9-gwexkAnN1IckOj6
+_DcVEf-hIJMIcX1Az_UAMaJei7qwuyOCRoOcf_ElkbVRn90P2HfwukydIsRiMPsmJs0_tHnJm0_A
+WiUm7s1x1w_WFpUNH6-yt7ZGD7GGAOb6CWBBLTqbsf8bkQDX6yi0ISyiHYFp7bH0G3atC-VABNRb
+dWcEj9TcuSs6QAzXAQC2PkRWeD7EcKWATu8HWgFtsWeFmzAA0_hi8-aBgbuSdr__cs1a4LCAKeow
+RXWTiYEW6u5-Vgudm3927itLnm4pvs34_OkgN_rvkD34yYu8_xHJJQVue_0pQsmbwgHZOUaeRHmy
+q-OD5LEfynsjaKdBdmRObJ49_oHk8O_QAvJHhjN-2hn9hgMAv-7mh1z7ypxwIo0rZzK30zLw4Q_H
+LpWQkU0BkTzA-MQbbmQNrcfgCCcVPmQcDkvklM-CJtLbAC4HSg2nozcTiZpXTpbd0DVgdACmQcUf
+BA9i5WuxukVL5p1Cn41Peu_fUhivCgQRmTdWz7ZrXJfstbkueCHpDOhS6fHeUA3j3F9wT1ye3x71
+03j6c7h_i_GNaMtx19CYY-7uU5QyNc3LXByX-9dzOzXt1ewxwmNY428eYLWppiOINsuGIGYq8Dt3
+88tx_4EODzYjVsbclZkTtdz7nXzZcPWnyoRH1u5y--VtSh3a_xYKl-jKD_Pmmh8a41wO_z3_qP_i
+n2K9cJZy6L-kX25drmxSCpTZzdRZUSM6f-VLNBi5eSVAShiQttMouNh6oZYMILirXT7QCa5Q2Ae6
+6HVYQIXA3AD4Zz0hKoB2zz9G4DONKFAQXmp0IVsxXEV39p_-Y3rEDy6SqF34I8j98l_LZuYaFNF2
+5xuXEZFv-e-l5QwpuTslJqsjksid6Bhtx1P-I7mxXHOi7lX4FBZSJhZV5erssQNJsQpOcS4fziQE
+m2eVXlreFZBwl8RcUGSzG40arbBTUC3ixVfp6FaIhV96Lwza1tDwUh7lPeGRn_Fo8QgK7o21svHe
+qlLIorjHXeXqpEW7bo2HFtZg2JgUoOJJWMDaeA3EbGrrBSXcpDoaLFd_7j87bVvACOukMwg8_RCs
+BzoefQlHPHUp1qaHEu09T1q1QT1RBCxMtAiQhWfEqcTYYCVifMwzoSgTqB03gkJLJaBNLZ5qRgnx
+7-k_ps0_mxunNLLzB9So8kInNp89yFhL9qS_HqoZ5jf9rlRyJHSK9wt9WQ6OVxgHk8YNxYDcNMqe
+0ae6weyjk_Cgew7P86T1MopuyDO3MCOgJ61hGweiIm8ugNcRAaLgchn5k2jGfI38yg7smnd58-bY
+KvZXc25PmpjbH_mDOhsxfPp-qDVJtPnbzd_QKafyjHR2ivxuchKgnzMmT_OdccPc923DqQPmQDlW
+AH6HgqQMLEnWQrtw6gfAA8WOLO2xyvCrKcC4QH156zTfmSiSSqZPCBGLv9IcyuQstuCMrHciXSjG
+dsc0ABOrkSx0R18HsIoWuNQIZIZ_ND34i1RYxiSuwhDbxi8Y14AS4-E9Tvj9OgasjQLwhSVn3Fk1
+ETZnxhj3iOPA_C_mnyKvzBUXsTGZmD6NGCZnU-W45U-q9xSZZDu3D-Gv3WB2vmiOGH666Kr_Y79C
+mCsoW69SzAlHmU2IJJytkIkFfAwtDa5eT8Jt-7ptfeAuD4yLBGIag1yqcpPpDeg6Vi-h4dSDM66n
+WhGr-TjxbD79uvk4m-c0m1xWamml7aUlk8-IU-0xsuYp9nI4XH-KIU59siFRDgRn9PK16g7L5Rjs
+a_2i2WUi3QUUUGfB9spygVgkjXaa8YNl4aBBCxriFZldd-xqWLNb9GsnJmfbvuYSOnotOAQ4FPst
+-uTO-jdGpTMnVTQvQOLSZ5qktBCQUoS7WypeUdLOMbgHkTYpJn1y3sk5MhVxz0feN45bl1c7yTnc
+V1o1M1OVfWhZTQhZkHHVEATYkpdezlYmV9ekM_PTLQELNeCUaS6z5DgVzttZoIQZRw54WzdPEWrL
+FXT31Lpq3ECmdr6U04q903A-fJGTpY0Ck2zL7ssFxBo4ytJq8Fb80FUpYvw7YhLb_VpBvKrwFCmA
+nvY9JNqmMfgatAp_ivbl9SqntasENXgxk-dTYCotCXzo7SwoLqOXPFwjAyhFz3qeDfBmyZKVH_BM
+LqQuWaX2S69yKidPUFq0xka3FvjZxrYL2n8z1oxtWAu3_oKyy9VWxHxxeT9pmCmjEQ1ybsnEaWB7
+af7AZFoi0dz7416NlVaxoDU1NTJWnvk0OGTdt7nrtlR0FJS9a4iRx1Ln-nYr69lWzjLFSLHyrypx
+nrUhfC1vNKbncEsdZmAJM95iCC0QVqumMkj00bt4Y6oImmMXEVvV4Bc6Gsoq5IC8KZ7AVgDsxO8M
+O5iTeWDooscT8dSVaW_cw6sD211TkYhowgcbHofJfIXRrQgYwqexZrdO3zol4Y-p0p8p_d9bJ1lX
+F2BdPh_lV_yURvwj-NuVQocSC1BtS3AQk-MENMI7hecyIZYv5BOqt98ihD2KxEsSUA9BPqHgZO8R
+5p6BNbrTZYNLCFNMdSRYkQKaSQhWkKj6WXs-CSy-DxeLm_RdmsU6EcYgM0fMwqSZjvr4ETPeq1gv
+eYByB5N9fztAAJq-kk5k3CRGLRw_shJhqpH-NO2gm_WoT_k59NJ95iZkwhdqfSFOV9BiiIejCjug
+E4ZyIb0eD5QUvz5MfJAH77c5XXXI_xuGo-xwHwOwJsYFhmvR6IsWHqiOqLIlRQIoXVLjHz-CY2MA
+73V0Psjuz1XMd-eKQEMaBh8C2SCCol8O-RCVYDsSAl3Zz0ajQTijCi0ckXleHCWcduVDnehxWnQM
+ANmiJbSifF2vDWVKO9lEBIQt5V3ZdwlL_QWxUjO84mbUgQWoFsPhFg0W6kWr8Q1WGYlhXlVvhwv1
+I3wxiG1wZOK8XSvUXTeHvsp3nejf7XH1_HSDWGc6KPOXXBfr7hoxeuGZFyhG8jXpsRk754H0tHeh
+0ijMPHtmXIW5djXGROHVfeCFb-5VYLu59FZKpY6oX8cMdX4aELEALcEIADAH6CCCSBIEILFxHooc
+2WZwcEv4NDpfpVQQr7XsVifAtqGeBIHdw8Yf6BaBDiSdLFECA2fHvA-fL-Ob0qurAKjgAPIISR5m
+EzVvhEICp9Q3PeDuxXoAtRFscH2sbJYeMvxWj3AqB6e3dwYWXBh9Kh8KDLGCp31Su0oNOof2yVLC
+jkNAFRDi2JZ6RasLH6ADrCg1CiIxvhkEbLw5oI0oQFNxIy_K3FJZcgbqKkRqP1swh84pqUDOjP3Q
+6BP02VxAwxml8aHbXjLJsGYmw1uOJqv6nxqY1HJ4G10_G40hD4vk1XkgXLZuwXBfl0sz9rKr1Acm
+p7yX4_Ds4Kv_O40zriZEpWAtOcEw6sKFCghViRHFqvPTh_n7gL2piYozwU8pJUgT8tVUFR5DEeFq
+uYYoXgtxf8tJerIl5vb8NGNIJsNLlSKXq8aVGHmuTq_CZKiY0P0XIhY86vg1mXXMfERNzIcQF8a-
+WD18ZOzuuTL_Wo7tLt2wfCy7Xb6iX_CR5nFJ5MzNTT2ZqpHFGjLKpYX2hCv3-hoss_324wDE2buD
+vvx6JPTuuQ6Yr6-Yre6a11xoHArtc6HlmMQxY7j4a61R6clkrtbiguVpP6xYq7Axt8VHNHn04xDo
+6wYjHzsCZ-PrFyj8x8XZd6VTTHjvI1UY3kKLLskrr1ocAUanMRG0KlQ_LZYTVaQsMdBd6jaarnk5
+mdilRN8BfWYp8THZ47g1NKTnTVSLrfF5EMgl4fwDPigPWZeKkkZDODPSxUTWMUozxFuhUtcn79jD
+4Eb8Eu4vhE_Igo6-Y3bOLVSBQEl_OTymXEPRzumv9QLNYql-sEDx-rNnDf6jBwQSu-UMU2MVWWHd
+KtA0fH7VZJNdGQyUtFVXQ5bo14xsVrq-JU2T0CNbfmxdG5PCRn9hhRn0mIaCqhQRAIT2I7ZNFycw
+0VtZ0xUIRBIxRPTItvQ_pn7BJf0RO4mjVqCgCrNdYNL93Lbhlf0lqCFzPQKXfcfv0seyvUuKJUAP
+CGO9h1GXXurAylsDxZ95Yxw4MxdqIzDPDG05rFhsaro3-rkDhesuOr-h9ojHY83MroiHqWoiGC4T
+JAVGFImnFMPGIR_deulR6AgNoZezzzJOQOQ8XfZPgS8NzCEwTZAcKxMMiRy6fwUh5mw742iAO_4c
+lTne9O0ts-0QyvFlpJ1Kdl0VQwUaHycuNTLbwFHQdooAagX2NYK2xwyywLzi-9xw47a7iSfPRsvc
+lAzH-c6UKBYybPtWRmqXBxCR4glCTyNBqBdYHS6Tpr8kv1vlY_822urDkKb5wqd05qErnSQnr5gu
+2xpJMAWY1eeG39PssOkfXIhTBX55G-CmidTAfmQz3EOsORfnB0sSNfKpcCei0SrF4Bjs8ZtwLLKF
+GGPD6Z_XvGDW4EQZfI0KpdZXx_7rg2WoYSHUQeIV8K1bZc4PuavYYTHRmXeXanoc8Nb-SD-9l8rN
+05Ep8mGUgAsLZ1iolBnahHBrfDcmrJgDIRWCZ3Yqt1n6F5iLyrkTTDZAhZjPKM_I4Z-SDQxztQtf
+oW9XjoezXeJLSPQ6-gdqL87Mg9OIfK8yxTSLSU2TTC-TXq5zWJJqHhFfTutOxZcVQFSNHOLf10xx
+pODX-Vjz0itUBj-Zl8Rx9rzkkMRn0PkiOVA8CjHKRRMOB6vcz6IhC57SOUYAJlWAvQABQda4lDOA
+WrRIaJU1llCEoy5fkEkOhfXCh9DXGewvaIxqCtKsudjmIL1zc9oEzavfnZNDN7hwGY8cYcih97YF
+i_35r7_12o_kRnVgzPCxEoxHAQKH4YNLTbqsBkDp1MtslXZv0NICKoRr9KW2JU0sKxfmJMq9OnTV
+WNkNM0qc73jVRRpy-7Fyh-RiZ0AfO36pUin3zmg21ItimPUpb1B3xwylDBlVxhjRtUbg736iv3UP
+MNxnl6PxLdSHy9tOs20QM_z960V5rvKNzmgwAqSU-lY6apNAhHSNKZQxagy4FBRdT8GUVn7A8T2L
+aRim9YXjNt0yz5IVxxopUQVuitJAXIOgxvUGVavvhxC15dXg8MJsQc85Dxh5iwWkMEUfKTrszjgf
+ARdezlHCdoEcfofNzyEI7YTJtUDvGLi5oLoU6gOUukSVB2CtN8Y7asi43YO59qiwzhfklMJgPsmu
+_zj64HGLBkb25d_jg4j1h-qPKgPcK24MVPVchOA8VyWQzGBpIt9m8bm_xkCqWQcD24m77UzkZecw
+lRObyvsyIVJI5AaRxydfBhWcuMto7U8tNC5TRyAExIt9RmztmA3RhE-r9sJYwoiDH7vNImsK_yuv
+gBYevre6tM27vQe5JaZB5yQzEJXYR-ahj7XXnaDQHwGHKoSbtEZdRuNQC75xVv0ixwofXYTyS-IU
+-k63Q1gM5mLKWTp-sAMFYoNGawAURE3wGnvAAa-kPOQjeIIV9Fx75wCIYKITWVWJYFoo-IMcIATN
+l6wYq8ysBtEQgFI2MGzne_S-ic-O7cChuDm4aZnZsGoayvIamZCkvHVI4c5HmCOzZ8LiSAS8M2iF
+xUcFmOYVcvwDPNI9MNtviKQN-gZFFTKA1u6vghGDY_4OsIX9xbk-Uq6egCwFL1mGDOgIrBjDdoNf
+llaAHtWXWl7rif6syBweWi5nBPGMAAxdhm2Z7ofN4cyP0DlmzFL2XEtxdOCM9mueE-eNN2ZZcFfU
+QfaFt5nmamaDKDTL3ovBG0xJGjZlVKLFUQDtYFLbVMdDwZbRB5rnrrMaHpIydYSTY6V-bRMPk4dC
+_ESLzWUzTc4ET3kuv4VDT3kSK0WQ0wqeqckEQ1e3D3J834gM5Oo1yU3gK6ThYsDu_G5KLuxw9S39
+-eDeWdVxHODgh8K0sl5R496GA1sj_gKpRufMM4l2QbbWoNURsCrAMpbxA0aVyxY-Is-07sbYs9x1
+48q1OjsGNDHRlDKROC8NAlcLdDGTAIzsnbNODuOe3N-m-49dh_1h0VNuD-h9X9FUxxbZJTQe13XW
+ofjQXRdiuC30lhAtjuBbHCUhTSELL23NAFjTI9dAl3fftWvhoKESo0kDGl6vRTKBsQC2wFqQsTDZ
+SXG58my88_7tqegWiZnlUQ4UbtgYwYaRGdl5g4htY8c1qx_GIVTPpSb6-KX9yovpYp0U56YAyunJ
+zXqFbo1LxPPX069O8WPNfQKGBd23tGocKAWhueIk2eEWWKRFmRJ4SCeQmPcGopWZLbSodJtsu0Wl
+f7VlN-hDrkTI10kwgA4Y1vt32793-VaJYa1489NE9ORRJNirpyPlpdd5DFz2zXYusJkmfIz7Ikjm
+VlzMVx_NJnBlhhnGXj9cvULEBn9llqNZ8Pp95piHbIeI6duzzeLcWkqWc1stIamzs9Ty3gRiKcMM
+Z7xCehE8eDcTLmWLk64Q5TfmxGFKTNsY5RPtzlouOMbDjUU8mvKnrFpTGhjbyXmvpAPpXIZeWZeA
+wgJMdja4RUZr8bhlP3PKWyECnFC0QStAG_XpR2y0dSDFA9R1fy1YXTnMFp7Cahh-8nYrL08lyjmF
+RGmCpbhnZhartdZdzCvytF6-F0pnEFa2u0U-tUGZFo-Ca6S9I7_VRKTJL4QsyFUze8eJTc-MqJNe
+BvGNckycg4Fx0BkS7uUtBATRnreKPrcl8aMiOeCOQxX13Fnp1PBHhdGqe1wgUb9p8DkmAN73IjgK
+DdwarDHgOtC4HxGTlr5pkj6LQesip8WiJGESRNSMUIXwSqDy8M_ZRPHGJYzGbUm49zDFS-UJ4fXc
+-TbEztjS5iljZgK1UW2jZgG9STsyThHeZiqe6c2_DIN-6bo-BheCGiz-DUctfG_moFsWlepVQf6e
+Y_idqX1jwbUEEV31GdzupREpShUnBUBtCPi9FfvEyQwI13c9VtNOry6wPViWIgSC-jiglfemaLMg
+oXL3GQm0Gf5LIUpPq9T1h-aQ1S2zvPuAr1jHWAJDR0wQwoOggnavk6aO6f_DEq-VHwP8ourcT9rB
+vHIZBlm6LDBHVEjEJZ93fOIExuaqDF9SDANe0CLfBHj4nsiO8rh2wv5fJV1tuGPkmMxA5uv3F3LH
+3slGSTxtNCd4mK_vaqeym7tBAnvnE9nIRXP-vfA5d7rsiUMVIH4l2TaVPMWUe3ql6mkqG5RS03Nl
+wRlfiuwxfoxhe_6hx-9CDGPmiVKa4iMe5tFzF-qvKM_ma02E4iwbMLqQXETF5fm5-_O9wK1XCMM-
+zhq6MqNjoh2Uz6ZKVqCkOUGWNjmM7ttJiM5-j2lxqXmVGv0wARbe3tTmbBKJ1JmnOYhVwvxpYVIy
+UukRXaFCrvoBT315fnxnRq-TMvPf41CXTdL2FKfK8ags6vEn96gleYMZwnsSvmxA9HABvoZTmVcG
+JDv2lJ08TaqyUG69NhRc-16Go0XJrgt59EIwiBeX5RP6sCR5Ml-0BPGxmgX1VL08EaKG8ly-9jYl
+I_mBZR0YhGf6VRsMX3ia49-wGL7iOJ-5sjt5qWwrx7Zo7M8g7Hk5WdVat-llnSwSWKJZSnh7AbYO
+aksk16yXufBsA7CZvtlfVlSjuYJx9AcnA7gK-33OdITt6WE2oy4YQpc34EHnpEF_1qf1LcVGJwEr
+CgLl32bvuoWgO4pkzkkHA9qi6qlAji6TAh-nztyOA9wgakaDyj_8OnD176496hEbtc3-gxgVKtBt
+IjNXTpspuWXgof7xhP0eLlKJ1wrt-SYKoPos8yOsRXrbJAGgdHR9SpsXFhY9XGt1RlhlLt7yV7LR
+ovKh3Gt8Q5qWdC6BcOnC9Ft9DC1GtVV3goHJyNBeCm2SqdO9J5mxtvZiYq-IU_emsn7heclO5vdT
+tOmc7TAU3ZcO9Cr5SK-5R4APJvmAvZz3cjMwA8ksI9hjeKZya9Db3mHfTdaRYUp4cCBQAUnEvujA
+_iyb89zinPkkyczXEsO5p_UvLzQZqM0GItob_pEqfr--nlVbL-U-WLrQ5-LTTTE2EH7JVtoO52nP
+0j-zpZ9RrCNuOwM400jAcwrHbyQKXbgTGFPSztJItQgU250lQseKSM-ZIZFJmb4KzQFtszbuiKy5
+MzuENt3hJSA8BMgAnI1TCrw1Ph3tmc9AvDNw0I5oFzuG0bUqiwMCQ1i4SrtP-94oORXmf81Ke8eY
+0RnGH8UW4Td-9vIaTYJPQtPLS9hFZtgtFZhrWJkZSHbr5TkKFDWALOTxZJCcDdXVEZ8Aql9Yrg-K
+q4IBIpHeBJ9um7SuVXL0U-3jbqVr8E_9wNCgMmlPPgz7NG09xS0kIoXB-gdiwAXWUtTzP4U73bJH
+m4o1fTyDfqzyzb4bd_h78LTUqUj5EgfW24Kj8Zjy2M-4ZshzTIHBiu92G0zfi_9fnqu8yowNJx-h
+ItNsyX8f3h9YllI1cYuhR5jKN-b9aRSQktzVDTpiWSN9rnrQexvtd46_KIrPb0RXTHvRvzLBh-8u
+zaZa6U-yuhjWru1MqT9EMxTMmIRExbOtfmuDbq199kr4j1AfmuJAJajN8lA6tg48as71uyDnAvAi
+YXB3sx9SMqyJc0wBRcvMNb_0yf6L5xqLAqPCISR_u3K79saMDLIrfZ1Z93xgCbJ4LOh1-psJsH0W
+lH3CUn37ufarc9cr2a-EGNy_wGPbYRe9Wn-CGH3_93WE6N-wGH3pnDExrZN5NQTgzC4_aN0alhOR
+8G6It9n1CTOmfFbabi0lVlJ-TjdC_7eCwTbH2OGC7TeBbzK9vTbdoJYDsXaIjSyFq7Mr661IV-9v
+Gt5YYjU_u8s5yDklIDY0mPVsf--D1zapzef5DekEn1MrnjO-NeGs9XHbUV9sIlfIWAdlDTk5CT1r
+ckHb-1VXwZvVRZwbje7Zf3HOogWyX0vx7yp76So5LnJCELlrH22nP1_MC1OwachJr5lyrfEHcFOR
+M774k0Pp1-vNRFFEnv1GUhoSnKIxX1HP8OBccVvTizbVtq5Rv1FYI0VszkM0D8oUFAYZGcmMUzwF
+vHr7Qeag-VLZ9orGjHnAOWRK-jVVntJYg3ZpLxOBFRsXc_Php0XfrnGG5bhcXbGj6piDZ98u1ykg
+o_OgSiXaXfeXVnRYVAY2h0hn-J3QJnBoIbz9L5PILGOCEu60c9j46YBVJqyyEUXxbLvLxlTsM8ew
+Cn8iUpaCDFuFtW3iXE_t5wRAjO6TA-qxuvWhvoNULwe4n5ZspGb6mQy855wVA1vDF1PmcULIxylS
+7MrFIEhRPSRDz4TIZta7IUcCqdVu9L5BqrIbOLFVcVxzr5aBEdovFvwI4dcUsBBJ1IJzFyC61qmc
+oMO900y_Ee1Zb6-KIqOoycF0c2Y7u-9IQxpjh5xnLisIDpMddgAag5fW8_65RXcQHnzduX41935q
+WxffqyDRj5LRnwwrmdyzi1bwhtJuGj9Tb1FLG1Zb3HRxg0qrhMuq9LNzE2Fx52SDANH3QqByKlwr
+vyW1gvkchK3FAWRKLPi4-GSmPUYtVgx9tJYjGWwgmDHA_I3l0YyegXwPITdf7jCbyMZHj87tQVV5
+zUbHDHIVrRxoUU2Gfjd5Tf9UP1e8jTczijhtUJzPIYs7FXi-_eaXy1QtSJg8yJykvrvuvt-jcLRH
+Mp0KkOUsfUHvP1JmCd18gCjjAPiDRdjoPWe_cgFp-oD9-xsykE_6HOFdcfeYuQeC5eMlyUlrs0sF
+3eHCdL_9UmOkzlaCNWtH_tRmqamC3-iJvcoviind-tRHvzduu3wMQ3Hk96_hA1EN8Qhx3dsxNXJ0
+fcdjDYAHaU_r0YBK4KUABIiwgKoAjWwmWWvqGsx1Sjc60n1-Uq9aQb2ZrEanaagyDjYuhC80J1UC
+V-MQ3-8H4mX-GmmfYe99KAJiu68Zy3zIS98C33QJhhy1RFPPN7scqzut55-vBGPLDGUJmETKQxRI
+4CbSjd0KLFGsXdE84OdUXm8tcQ01RL8LZgu_oAK3QxGjHrIGBGeiv24Pb6Vt1xDArJGZLcr8ukWv
+7YLLt6O-AcjDjAhwCN_y9y4lfSy1LLAX24pIE7aa90BI_Acca4sw3ivk0B5_7pvnv0mj-LdeFtCS
+AYBj6A3b_jsTSLHMLnt2FEjtNciPCDCx2v2y2tJjAh-52NH5u1WOhekBRvcilyCJJqiCECdC37Ta
+MbUtwaJzBIp_7m45j0AvXZ0YcqqLhxX-bjRyfIOmNlSPDrfhAo8DMR0RG9E2nodTIPdT8mG1IoQV
+u-b0Obv2MI9nN6ym8c11A_tbmFbhaT4NnMB-ygcllcMn4Aw0vdLRTu6mofLxim19A7XHx1q4HBO3
+K5_lRDLm1Md5kkC6UBi4yfaA5y4I_NL5tg4BxM9qaWDbSfwJqcXUa87cRuOT7hk2JYDWlj7py3PF
+F3MqoyUcw4YPI7sXJ-7CmUlgCt-muszKn6da8D67V6JaV77PfmjuSjz4025QTX2wTT0mHLUBZIMa
+MCXrYAfLjqrPMHWs9uiIBeGjTthRtJIrqMnE-cQRsJiWeUAr6hdzF0fZSUEgG1rg0Bm7-9z7957m
+F2t2kiDAjv9rXHJ3R-c7ppi11jf98VPejnLZ9y3OcfKL9D0T8i748zyhoYg2oZPonJDI4OAK5Tlv
+kRrYaXrkTnyABRXB9_jqRUZx8tk2Re5AOjMechqS-Hb8l1IMpwLLw_cEHuOikVPWxoCeI-nRliLH
+xz9CeC1eTVdCroh2kdHaoMTR1c-N50tAZYLmuBAj4eNVO6W1DxkxDWQRaD2Dy-Eld7d04wwqereK
+jrEo8Q5UW5UGpzBZL606vK1fVNy93e5uG7F4U0JRfUG3AjcoE2wYcpKQZlo8BMJGZRWQjfyudX9e
+ePXjF7ZjRIiJoFobm5qmQS-CDX7a3EoepkE5z0V_EiGg0mLYBEZzs9meOwwnFod-vI5Vsc6q39kx
+taXxJJn_6QqGkhIM63xSutI3ct_f86oPn5uBWfHKi1HJgUfcIBbdosmTIeHzZKgY2YF-emb2n60w
+R2gVEu27kLAra8opThDLAUz9N2fLCgFJfAvp6f9TzqPuxTlWQ533HebaHNZtPvhMu71ps4ouei_G
+aJFXM0zqJjmiyQnH3v17OgaBKjwj433-q1lOIMrlLnhdvQfLl29qGygHK-HNjoCiP7UljrzNd3Dy
+1ZkO78GtlN6JmtsMG3z8HNqvDHikp8AJiXZ_RCFQboBInjv80PVW6wYrEjcMmOR3iJmmiLQxuoYD
+5mDbR3ZhP27BsOIk7xoiGSBAHGKV-GGI28OO-S4hP19tqdYGb5ndRHiXxM7TH10WCex5zwXPhyUO
+qKuKKaInyRRLalP3L4bgVIAnfM7V69yorlJldpeKMlVmUyFT5RM87ltQo4ZSiqrUWOO5T8CBlAaM
+q1d9vP52ZXnfAzhdlwgf9onZc3RsXARfLirpgaWlBSRrOhUz8ZFfXDjD87ckJwSZ13I5b3oJmwoP
+-vOK6hBxNO2J53PM177cHvGaUjMA6FdUg3rvfjyCtismQRCOt_zkh5Vn66YkrMarxatSIFbnqSqA
+5UsGNhGzcuVCt4vbS5BwCMDk3GtpCeJYgr7arSQiMjYdcos9CieOV8nX2RCkaN4RVvUbjnmj06i8
+saTKx4yOR3iPOAM2Dm6DsYSVLEF8rG2vVYMUSq1ocmeKVAMIOKMymNf7NbrtelFc51KxSYShBew6
+aZH2a31u7Iozil-ONbcqwFn98voxMRD-Yfw7lmqhT4gF3HyJlOPEzUmOlCUlQAT_7sxI57AlbfsG
+24g3ivpUDUHA1IRgJve0Ef_hjNwYWe1nd0_MQFLLPJ9MiI5_0te0gccK8Kp5KdtchXsFdcd5vp6z
+-XbgB6IpdJv3cBn-vUQDnbziw5ZYJ3M4LF0qcRR7E9o1zqScT7K8NBySLQFMZc3NUNQE5tF1IRcE
+svDd0kCq1ajGASP5MGwHP9CioFUv04LqmtrS3HKfNs_KMAs17fdeIEe1rJSXZPfRMWb7ndii9lnD
+iMbayrCZRA8-7hLxX1nFnc-5U9alxq2VgP5djWLwu2WAkMbk6vxRh5Phdzgeu09rfmNy45nUW8vh
+uuNjqG_cLQtOdCqqCHnly1OgdF6tMGGYx9fEGw8mAlp38OLKPWnVX0ewZTMALU5o6SVx98e20DDt
+mV0fR2a-miQVz1KrnOFh7Aw1zOaIxwv5GINEYtiJyPDNPMpx4RY6Far2IUThs8RfHjLOb-MQ0nfO
+u_wfauUvajjuKva0qKziTbsPLXK9Mo7DyrEI85b6cS3NA-FnrWVPoATcfTn93nuJwz7rlxiw_OVR
+fAIw4e-YD2Y1jq7GLYTX1If3gP4vP1JEclSWjAc4UFQ9AGPnuDbaqx5UiJUwtzlLSxC66LrFiant
+mjV25IkYRZop2-f1XFPiaTiJEI7sg74qJrRlIWu4eU6J2XRh4jLExyBpaheUb-3unMOPAtii35_s
+oLY4xr-4X7Li1xWJpn6StqbVllrM18MXQa5vTpk00lo_q0mQSKz0z7DVPCCWuQILzyCqTQmuqVDH
+-GkJ8GEkIr5uUDg9jx1Ug-TpPh26S9jclrwN61jS-Fqc2qFQzT-vxV9Kmobu2YiJvGh76hNh2NP9
+2Sj-lhMWqV0PjQwk7mvswIjinrui73U4R_Ew7F8a4lj1_lc2ay989C7UZhnkzifJlX_1s8V_GOKd
+aias36GxJVNh2Bxu1SytkubXxEfBAhiJc1BnZpoO8wIwQgVZrAWDHW3Sv-NgV0mTnvPKhpuPNoT6
+OK2h7s3xDp94vRm7Arlsy9gCpVDoH7IuYDEJhtPq80WKY-_mK1ATVwznPuEDSGFCp42gPkmJAGzN
+hvkjenvbtKkAx3Y_GVx_5B4gOe65whCZjeiKrgyhlx0cp_3oYyR0Lo66CqTQOnKojy_yN6YScm1f
+IxjE-nfgChV0e5IspDYIRsCC0SlHTOrtRgZAYJUXFNbNWguofxjKsccUK9qJ_b9K-XU05VYr620l
+9EqoGvG0h5pDMr5idLFPpEVN4d7Vxj2rr3dCuBQVgTxaZiZ5dj4aAWga8impCR2r6c7rRg4YQ87o
+RbompCRznofo_eo5tVbbqA3LA_LA9Ebg4g-59CiixKdElKA_rOJCAs9wXseVZ4KTAd5agDzD81eD
+wSvjXurPQp88zBYHACilUjargZyJJK6lGPf5b6mF_HZYHmCRzZfO4gxunT1DOZrmUQbMovoSy7fI
+GdImSsQon0bdd-mblQJAcn4whlZ4_v85UrWT2AR2NCRlhPQqs6FynJoOxfAmP7dyF-0_0kutd5Sm
+XL68XiVWMUPEV4-3U601C0xutqDq7pNP0dAanHkEhIaM08jSaD3_NxX9tMZYIQWCnoGhvl6REKNa
+djhjWDab-gAlnT6yarOz4ztNGo0OgMI2KGqEXRjfb0PG7eJXVEyFRESnEpCrXWRRLK4SVThDnEVy
+BbylmMnTdLD_q-Wc_ZTqTVR6izCZvR24UtKalbppoOv-fmTDgN5z44Qsvq80okFNXP7mmoifSxUo
+rfPO4qKYre5dyrGGG64BWhYVXgFAH49T6AQymiM0X06f2q4RR9VInAApzo6JCp2sYg9Ka7kNGOVc
+7S-Ghqska53Obh55Ihuyq_xaeJ4TmH2dXsSTNcycCfhE2PK4at0f9rTwA9iHzPnUn11iq0vP988U
+dBG6SGKlyOuhveB-StOD4ka0KA1wrpKzn2Wiiowg_5il2B_Znx2BxYfeWfoDSI_5tFhF6_whg6pn
+JmyjHqxam3vsnqmtKjk4B8i7njKZD10Ao1Sjrb075hE52xf868X1UkV2FfUA2yXuCL_D5Ix1nQuU
+6CvZXO-lAKTsd52WJA7t6eFgxvk09r9njPM7hscVJm_8UE8NdS4hLoLuMZZvjS07bdR_qQhqU9hG
+inW4DyyHO3tuBOTR4yyVD8Td7sJ2xCBO7AlUK6VV4F65GPWoEENaKPIlDAVLNEhvG-xXAZqLUrDm
+SkcTLJ0exRFXjKexWO-hLWrlcFTrXgVABBuoauAd_Af46PFSqs3uUwX_Yaa1nShdBljpCIwEsMdk
+VZq9aEpDm_eUbxxvMuj9Q2pIDqB9UhBdYBlGb7RyeE4ood53lDmqtWzhnEYgL6n6p-OUdIFxs1hR
+ab4G1oeOG3584FmAO0QA5pJn70R4in424n1j1z_vnnKL9TAtoaswo5G7VOHoEGGL54Zi8IRAveRW
+i77Nmt4xY8fYnvmgX57A4_P5zNORHgL9mC5OuiISOnLE_-1Gm124a8sopAEwsWdWznHYZTs7oo4q
+zAr2nxmfY3cKxlKm43Ys5KZeMhKemK_YBIwn5XlSmnBvqe3GIWOgO1Ua531Pa55_nw62_0h1sOv1
+b43wIKfIDmhpOMpug0YcpY44tGUFXR7u-1UyEZozRAZ2oUT6N7k4LtbRO1vLZuiARqGSuZQ-mhmc
+y9Y7XXQW1OrGLsC6DPmL-9IJ8R6NP4qCniAyzbLIc6byMDS2XnnIJVDDr6XYG4ZoazhbganHIm3F
+8gIrZ-pdmLbRUt31RYfVThV8ZoMj6kFr7vR-cPOp1QSpwaRWQ9NrbvKEiToEHzqRN-WDwku2-iX1
+vYtmQDeviKsU8IBAIdD2hT4cUiCSU2zi3q3DmiaHhb7A-yXF9B1_yEikRyiisjNocjWIcSxJyUm1
+gmOTDmR2kHCOJdSgWnNZ8H7Z8EWIDwZl8XWFi09VDNKCONxqetCvrmiF3n5IVutcklgc0-aBOdHh
+aT4-87KkwjCbnJehUhS-8LtAL4BvJvGLtHhGL89kP_nqn_clVdY7nTVbWlZ-8zpI15zoCsIs3M7I
+13VCcaIekMl5PIIhOSZBH9oTAxVQoN3K7PC48WYDGVUFzu_36Ke6k2m0EVAhIzp5nH7dTxR__xG_
+xyi_IhnUoSu60CxY63Y02L_9m1TLtMF3uU0aJrFEizVUYUKkULfMJmUByCzbKpq3Ahmxf7cdrGDD
+zpCWt2ZyvQkqInD8ttRl-yvcBo_JT-Yp31aXoeY8_kzQQY__eClKsq47QQQ=
+__0x8b3f__
+)
 
-# Clear SUDO_USER to bypass acme.sh warnings under sudo
-export SUDO_USER=""
-
-# Define Colors
-green="\e[1;32m"
-red="\e[1;31m"
-yellow="\e[1;33m"
-blue="\e[1;34m"
-NC="\e[0m"
-
-# Root Check
-if [ "$EUID" -ne 0 ]; then
-    echo -e "${red}Error: Silakan jalankan script ini sebagai root (sudo bash install.sh)${NC}"
+if [ -z "$__0x6c2e" ]; then
+    echo "Error: Failed to decompress execution payload. Integrity check failed." >&2
     exit 1
 fi
 
-# =========================================================================
-# KONFIGURASI LISENSI & PERMISSION SERVER
-# =========================================================================
-PERMISSION_URL="https://raw.githubusercontent.com/BrianStovia/permission/main/ip"
-PERMISSION_FALLBACK_URL="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main/permission.txt"
-ADMIN_TELEGRAM="@BrianStovia"
-ADMIN_WHATSAPP="https://wa.me/628XXXXXXXXXX"
-
-check_permission() {
-    clear
-    echo -e "${yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo -e "${green}               MEMERIKSA LISENSI IP VPS...                    ${NC}"
-    echo -e "${yellow}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-
-    # Deteksi IP Publik VPS melalui multi-resolver
-    local my_ip=""
-    my_ip=$(curl -sS --max-time 5 https://ipv4.icanhazip.com 2>/dev/null | tr -d '[:space:]')
-    [ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 http://checkip.amazonaws.com 2>/dev/null | tr -d '[:space:]')
-    [ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 https://api.ipify.org 2>/dev/null | tr -d '[:space:]')
-    [ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 https://ipinfo.io/ip 2>/dev/null | tr -d '[:space:]')
-
-    if [ -z "$my_ip" ]; then
-        echo -e "${red}[ERROR] Gagal mendeteksi IP publik VPS. Periksa koneksi internet!${NC}"
-        exit 1
-    fi
-
-    # Ambil Database Whitelist dari remote repository
-    local cache_buster="?v=$(date +%s)"
-    local raw_data=""
-    raw_data=$(curl -sS --max-time 8 "${PERMISSION_URL}${cache_buster}" 2>/dev/null)
-    if [ -z "$raw_data" ] || echo "$raw_data" | grep -qi "404: Not Found"; then
-        raw_data=$(curl -sS --max-time 8 "${PERMISSION_FALLBACK_URL}${cache_buster}" 2>/dev/null)
-    fi
-
-    if [ -z "$raw_data" ] || echo "$raw_data" | grep -qi "404: Not Found"; then
-        clear
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo -e "${red}           GAGAL MENGHUBUNGI SERVER LISENSI                  ${NC}"
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo -e " Server perizinan lisensi tidak dapat dijangkau saat ini."
-        echo -e " Silakan hubungi Administrator: ${yellow}${ADMIN_TELEGRAM}${NC}"
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        exit 1
-    fi
-
-    # Cari IP VPS di dalam database perizinan
-    local match_line=""
-    match_line=$(echo "$raw_data" | grep -E "(^|[[:space:]])${my_ip}([[:space:]]|$)" | head -n 1)
-
-    if [ -z "$match_line" ]; then
-        clear
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo -e "${red}               AKSES DITOLAK / PERMISSION DENIED             ${NC}"
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo -e " IP VPS Anda : ${yellow}${my_ip}${NC}"
-        echo -e " Status      : ${red}BELUM TERDAFTAR (UNAUTHORIZED)${NC}"
-        echo -e ""
-        echo -e " IP VPS ini belum memiliki izin untuk menginstal autoscript ini."
-        echo -e " Script ini dilindungi hak cipta & sistem anti-bajak."
-        echo -e ""
-        echo -e " Silakan hubungi Administrator untuk mendaftarkan IP Anda:"
-        echo -e " • Telegram : ${green}${ADMIN_TELEGRAM}${NC}"
-        echo -e " • WhatsApp : ${green}${ADMIN_WHATSAPP}${NC}"
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        rm -f "${BASH_SOURCE[0]}" 2>/dev/null
-        exit 1
-    fi
-
-    # Parsing Nama Klien & Tanggal Kedaluwarsa
-    local client_name="User"
-    local exp_date="2099-12-31"
-
-    if echo "$match_line" | grep -q "^###"; then
-        client_name=$(echo "$match_line" | awk '{print $2}')
-        exp_date=$(echo "$match_line" | awk '{print $3}')
-    else
-        if [ "$(echo "$match_line" | awk '{print $1}')" = "$my_ip" ]; then
-            exp_date=$(echo "$match_line" | awk '{print $2}')
-            client_name=$(echo "$match_line" | awk '{print $3}')
-        fi
-    fi
-
-    [ -z "$client_name" ] && client_name="Premium User"
-    [ -z "$exp_date" ] && exp_date="2099-12-31"
-
-    # Validasi Tanggal Expired
-    local today=$(date +%Y-%m-%d)
-    local today_sec=$(date -d "$today" +%s 2>/dev/null || date +%s)
-    local exp_sec=$(date -d "$exp_date" +%s 2>/dev/null || echo 0)
-    local days_left=999
-
-    if [ "$exp_sec" -ne 0 ]; then
-        days_left=$(( (exp_sec - today_sec) / 86400 ))
-    fi
-
-    if [ "$days_left" -lt 0 ]; then
-        clear
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo -e "${red}             LISENSI KEDALUWARSA / LICENSE EXPIRED           ${NC}"
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo -e " Client Name : ${yellow}${client_name}${NC}"
-        echo -e " IP VPS      : ${yellow}${my_ip}${NC}"
-        echo -e " Expired On  : ${red}${exp_date}${NC}"
-        echo -e " Keterangan  : ${red}Kedaluwarsa $(( days_left * -1 )) hari yang lalu${NC}"
-        echo -e ""
-        echo -e " Masa aktif lisensi Anda telah habis. Silakan hubungi Admin"
-        echo -e " untuk perpanjangan masa aktif:"
-        echo -e " Telegram: ${green}${ADMIN_TELEGRAM}${NC}"
-        echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        rm -f "${BASH_SOURCE[0]}" 2>/dev/null
-        exit 1
-    fi
-
-    clear
-    echo -e "${green}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo -e "${green}             LISENSI TERVERIFIKASI / ACCESS GRANTED           ${NC}"
-    echo -e "${green}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo -e " Client Name : ${blue}${client_name}${NC}"
-    echo -e " IP VPS      : ${blue}${my_ip}${NC}"
-    echo -e " Expired On  : ${green}${exp_date} (${days_left} Hari Tersisa)${NC}"
-    echo -e "${green}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    sleep 2
-
-    # Simpan Informasi Lisensi Lokal
-    mkdir -p /etc/vpn-script
-    cat > /etc/vpn-script/license.conf << EOF
-CLIENT_NAME="${client_name}"
-EXP_DATE="${exp_date}"
-IP="${my_ip}"
-PERMISSION_URL="${PERMISSION_URL}"
-PERMISSION_FALLBACK_URL="${PERMISSION_FALLBACK_URL}"
-ADMIN_TELEGRAM="${ADMIN_TELEGRAM}"
-EOF
-    chmod 600 /etc/vpn-script/license.conf
-}
-
-# Jalankan Pemeriksaan Lisensi
-check_permission
-
-
-# Define Hosting
-hosting="https://raw.githubusercontent.com/BrianStovia/VPN-SCRIPT/main"
-
-# Get directory where the script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Function to get file from local workspace or hosting atomically
-get_file() {
-    local source_name="$1"
-    local dest_path="$2"
-    local cache_buster="?v=$(date +%s)"
-    local tmp_path="${dest_path}.tmp_dl"
-    
-    if [ -f "${SCRIPT_DIR}/${source_name}" ]; then
-        echo "Using local file ${source_name}..."
-        cp "${SCRIPT_DIR}/${source_name}" "${dest_path}"
-    elif [ -f "${SCRIPT_DIR}/file/${source_name}" ]; then
-        echo "Using repository file file/${source_name}..."
-        cp "${SCRIPT_DIR}/file/${source_name}" "${dest_path}"
-    else
-        echo "Downloading ${source_name} from hosting..."
-        rm -f "${tmp_path}"
-        wget -q -O "${tmp_path}" "${hosting}/${source_name}${cache_buster}"
-        if [ $? -ne 0 ] || [ ! -s "${tmp_path}" ]; then
-            echo "Downloading ${source_name} from hosting/file..."
-            wget -q -O "${tmp_path}" "${hosting}/file/${source_name}${cache_buster}"
-            if [ $? -ne 0 ] || [ ! -s "${tmp_path}" ]; then
-                rm -f "${tmp_path}"
-                echo "Error: Failed to download ${source_name} from hosting!"
-                exit 1
-            fi
-        fi
-        chmod 755 "${tmp_path}" 2>/dev/null || true
-        mv -f "${tmp_path}" "${dest_path}"
-    fi
-}
-
-if [ -f "/usr/local/etc/v2ray/domain" ]; then
-echo "Script Already Installed"
-exit 1
-fi
-
-if [ -f "/etc/xray/domain" ]; then
-echo "Script Already Installed"
-exit 1
-fi
-
-if [ -f "/etc/v2ray/domain" ]; then
-echo "Script Already Installed"
-exit 1
-fi
-
-if [ -f "/root/domain" ]; then
-echo "Script Already Installed"
-exit 1
-fi
-
-clear
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo -e "$green          Input Domain              	$NC"
-echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-if [ -z "$domain" ]; then
-    read -p " Input Your SubDomain : " domain
-fi
-
-clear
-
-# Resolv
-echo -e "nameserver 1.1.1.1" >> /etc/resolv.conf
-
-# Memperbaiki Port Default Login SSH & Optimasi Speed SSH
-cd /etc/ssh
-find . -type f -name "*sshd_config*" -exec sed -i 's|#Port 22|Port 22|g' {} +
-echo -e "Port 3303" >> sshd_config
-echo -e "Port 109" >> sshd_config
-
-# SSH Speed Optimization Configurations
-sed -i '/^UseDNS/d' sshd_config 2>/dev/null
-sed -i '/^GSSAPIAuthentication/d' sshd_config 2>/dev/null
-sed -i '/^Ciphers/d' sshd_config 2>/dev/null
-sed -i '/^MACs/d' sshd_config 2>/dev/null
-
-echo -e "UseDNS no" >> sshd_config
-echo -e "GSSAPIAuthentication no" >> sshd_config
-cd
-systemctl daemon-reload
-systemctl restart ssh
-systemctl restart sshd
-# Create 2GB swap file if swap does not exist to prevent OOM crashes
-if ! free | grep -i swap | awk '{print $2}' | grep -q '[1-9]'; then
-    echo "Creating 2GB swap file..."
-    dd if=/dev/zero of=/swapfile bs=1M count=2048 &>/dev/null
-    chmod 600 /swapfile
-    mkswap /swapfile &>/dev/null
-    swapon /swapfile &>/dev/null
-    echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
-fi
-
-# Optimize network card transmission queue length to prevent packet loss
-primary_interface=$(ip route | grep default | awk '{print $5}')
-if [ -n "$primary_interface" ]; then
-    echo "Optimizing network card queue length for ${primary_interface}..."
-    ip link set dev $primary_interface txqueuelen 10000 &>/dev/null
-
-    # Make txqueuelen persistent via udev (survives reboot)
-    mkdir -p /etc/udev/rules.d
-    cat > /etc/udev/rules.d/60-txqueuelen.rules << EOF
-ACTION=="add", SUBSYSTEM=="net", KERNEL=="${primary_interface}", RUN+="/sbin/ip link set dev ${primary_interface} txqueuelen 10000"
-EOF
-fi
-
-# Network & TCP Speed Optimization (BBR)
-sysctl_optimize() {
-    local key="$1"
-    local val="$2"
-    sed -i "/^${key}/d" /etc/sysctl.conf 2>/dev/null
-    echo "${key} = ${val}" >> /etc/sysctl.conf
-}
-
-echo "Optimizing network and TCP settings..."
-sysctl_optimize "fs.file-max" "2097152"
-sysctl_optimize "net.core.default_qdisc" "fq_codel"
-sysctl_optimize "net.ipv4.tcp_congestion_control" "bbr"
-sysctl_optimize "net.core.rmem_max" "67108864"
-sysctl_optimize "net.core.wmem_max" "67108864"
-sysctl_optimize "net.core.rmem_default" "33554432"
-sysctl_optimize "net.core.wmem_default" "33554432"
-sysctl_optimize "net.core.optmem_max" "2048576"
-sysctl_optimize "net.ipv4.tcp_rmem" "4096 87380 67108864"
-sysctl_optimize "net.ipv4.tcp_wmem" "4096 65536 67108864"
-sysctl_optimize "net.ipv4.tcp_fastopen" "3"
-sysctl_optimize "net.ipv4.tcp_fin_timeout" "15"
-sysctl_optimize "net.ipv4.tcp_keepalive_time" "300"
-sysctl_optimize "net.ipv4.tcp_keepalive_probes" "5"
-sysctl_optimize "net.ipv4.tcp_keepalive_intvl" "15"
-sysctl_optimize "net.ipv4.tcp_max_syn_backlog" "8192"
-sysctl_optimize "net.ipv4.tcp_max_tw_buckets" "1440000"
-sysctl_optimize "net.ipv4.tcp_tw_reuse" "1"
-sysctl_optimize "net.core.netdev_max_backlog" "10000"
-sysctl_optimize "net.ipv4.udp_rmem_min" "16384"
-sysctl_optimize "net.ipv4.udp_wmem_min" "16384"
-sysctl -p
-mkdir -p /etc/sysctl.d
-cat > /etc/sysctl.d/99-vpn.conf << EOF
-fs.file-max = 2097152
-net.core.default_qdisc = fq_codel
-net.ipv4.tcp_congestion_control = bbr
-net.core.rmem_max = 67108864
-net.core.wmem_max = 67108864
-net.core.rmem_default = 33554432
-net.core.wmem_default = 33554432
-net.core.optmem_max = 2048576
-net.ipv4.tcp_rmem = 4096 87380 67108864
-net.ipv4.tcp_wmem = 4096 65536 67108864
-net.ipv4.tcp_fastopen = 3
-net.ipv4.tcp_fin_timeout = 15
-net.ipv4.tcp_keepalive_time = 300
-net.ipv4.tcp_keepalive_probes = 5
-net.ipv4.tcp_keepalive_intvl = 15
-net.ipv4.tcp_max_syn_backlog = 8192
-net.ipv4.tcp_max_tw_buckets = 1440000
-net.ipv4.tcp_tw_reuse = 1
-net.core.netdev_max_backlog = 10000
-net.ipv4.udp_rmem_min = 16384
-net.ipv4.udp_wmem_min = 16384
-net.core.somaxconn = 32768
-net.ipv4.udp_mem = 114112 152152 228224
-EOF
-sysctl --system
-
-# System Limits Optimization
-if ! grep -q "* soft nofile" /etc/security/limits.conf; then
-cat >> /etc/security/limits.conf <<EOF
-* soft nofile 1000000
-* hard nofile 1000000
-root soft nofile 1000000
-root hard nofile 1000000
-EOF
-fi
-
-# Non Interactive
-export DEBIAN_FRONTEND=noninteractive
-apt update
-
-# Pakcage
-apt install curl wget gnupg openssl -y
-apt install jq -y
-apt install perl -y
-apt install sudo -y
-apt install screen -y
-apt install socat -y
-apt install util-linux -y
-apt install lsb-release -y
-apt install bsdextrautils -y 2>/dev/null || apt install bsdmainutils -y
-apt install iptables -y
-apt install iptables-persistent -y
-apt install binutils -y
-# python3 tidak diperlukan — semua binary sudah dikompilasi dengan Go
-apt install zip -y
-apt install unzip -y
-apt install bc -y
-apt install speedtest-cli -y
-apt install shc build-essential file -y 2>/dev/null || true
-
-# Ensure standard systemd system users exist and have correct permissions to prevent 217/USER boot failures
-systemd-sysusers 2>/dev/null || true
-for sys_user in systemd-network systemd-resolve systemd-timesync; do
-    if ! getent passwd "$sys_user" >/dev/null; then
-        echo "Creating missing systemd user: $sys_user"
-        groupadd -r "$sys_user" 2>/dev/null || true
-        useradd -r -g "$sys_user" -d /run/systemd -s /usr/sbin/nologin "$sys_user" 2>/dev/null || true
-    fi
-done
-chmod 644 /etc/passwd /etc/group 2>/dev/null || true
-
-# ── Konfigurasi systemd-networkd agar interface ens tidak drop saat restart ──
-mkdir -p /etc/systemd/network
-primary_interface=$(ip route | grep default | awk '{print $5}')
-if [ -n "$primary_interface" ]; then
-    cat > /etc/systemd/network/10-${primary_interface}.network << EOF
-[Match]
-Name=${primary_interface}
-
-[Network]
-DHCP=yes
-IPv6AcceptRA=no
-
-[DHCP]
-UseDNS=yes
-RouteMetric=100
-SendHostname=yes
-
-[Link]
-# Jaga interface tetap UP saat networkd restart
-KeepConfiguration=dhcp-on-stop
-RequiredForOnline=yes
-ActivationPolicy=always-up
-EOF
-fi
-
-# ── Network watchdog: otomatis bangkitkan ens jika down ──
-cat > /usr/local/sbin/net-watchdog << 'WATCHDOG'
-#!/usr/bin/env bash
-IFACE=$(ip route | grep default | awk '{print $5}')
-if [ -z "$IFACE" ]; then exit 0; fi
-if ! ip link show "$IFACE" | grep -q "state UP"; then
-    echo "$(date): $IFACE is DOWN, bringing UP..." >> /var/log/net-watchdog.log
-    ip link set dev "$IFACE" up
-    sleep 2
-    systemctl restart systemd-networkd
-fi
-WATCHDOG
-chmod +x /usr/local/sbin/net-watchdog
-
-cat > /etc/systemd/system/net-watchdog.service << EOF
-[Unit]
-Description=Network Interface Watchdog
-After=network.target
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/sbin/net-watchdog
-StandardOutput=null
-EOF
-
-cat > /etc/systemd/system/net-watchdog.timer << EOF
-[Unit]
-Description=Network Interface Watchdog Timer
-
-[Timer]
-OnBootSec=30s
-OnUnitActiveSec=60s
-AccuracySec=1s
-
-[Install]
-WantedBy=timers.target
-EOF
-
-systemctl daemon-reload
-systemctl enable systemd-networkd 2>/dev/null || true
-systemctl enable systemd-networkd-wait-online 2>/dev/null || true
-systemctl start systemd-networkd 2>/dev/null || true
-systemctl enable net-watchdog.timer
-systemctl start net-watchdog.timer
-
-# Setup Banner SSH
-sed -i '/^#\?Banner /c\Banner /etc/issue.net' /etc/ssh/sshd_config
-rm -f /etc/issue.net
-get_file "issue.net" "/etc/issue.net"
-chmod +x /etc/issue.net
-systemctl daemon-reload
-systemctl restart ssh
-systemctl restart sshd
-
-# Disable rpcbind and rpcbind.socket to prevent port 111 conflict with dropbear
-systemctl stop rpcbind rpcbind.socket 2>/dev/null || true
-systemctl disable rpcbind rpcbind.socket 2>/dev/null || true
-
-# Installasi Dropbear
-apt install dropbear -y
-rm /etc/default/dropbear
-clear
-# RSA
-rm -f /etc/dropbear/dropbear_rsa_host_key
-dropbearkey -t rsa -f /etc/dropbear/dropbear_rsa_host_key
-
-# DSS (DSA)
-rm -f /etc/dropbear/dropbear_dss_host_key
-dropbearkey -t dss -f /etc/dropbear/dropbear_dss_host_key
-
-# ECDSA
-rm -f /etc/dropbear/dropbear_ecdsa_host_key
-dropbearkey -t ecdsa -f /etc/dropbear/dropbear_ecdsa_host_key
-cat>  /etc/default/dropbear << END
-
-NO_START=0
-# the TCP port that Dropbear listens on
-DROPBEAR_PORT=111
-
-# any additional arguments for Dropbear
-#DROPBEAR_EXTRA_ARGS="-p 109 -p 69 "
-
-# specify an optional banner file containing a message to be
-# sent to clients before they connect, such as "/etc/issue.net"
-DROPBEAR_BANNER="/etc/issue.net"
-
-# RSA hostkey file (default: /etc/dropbear/dropbear_rsa_host_key)
-DROPBEAR_RSAKEY="/etc/dropbear/dropbear_rsa_host_key"
-
-# DSS hostkey file (default: /etc/dropbear/dropbear_dss_host_key)
-#DROPBEAR_DSSKEY="/etc/dropbear/dropbear_dss_host_key"
-
-# ECDSA hostkey file (default: /etc/dropbear/dropbear_ecdsa_host_key)
-DROPBEAR_ECDSAKEY="/etc/dropbear/dropbear_ecdsa_host_key"
-
-# Receive window size - this is a tradeoff between memory and
-# network performance
-DROPBEAR_RECEIVE_WINDOW=65536
-END
-echo "/bin/false" >> /etc/shells
-echo "/usr/sbin/nologin" >> /etc/shells
-systemctl daemon-reload
-systemctl enable dropbear
-systemctl restart dropbear
-clear
-
-# Save Data IP
-curl -s http://checkip.amazonaws.com > /root/.ip
-
-# Special SSLH
-echo 'sslh   sslh/inetd_or_standalone select standalone' | sudo debconf-set-selections
-apt update -y
-apt install sslh -y
-
-# Configure systemd-tmpfiles to recreate /run/sslh on boot (prevents service crash after reboot)
-mkdir -p /run/sslh
-chown sslh:sslh /run/sslh
-echo "d /run/sslh 0755 sslh sslh -" > /etc/tmpfiles.d/sslh.conf
-
-# Main Menu
-mkdir -p /usr/local/sbin
-cd /usr/local/sbin
-get_file "main.zip" "m.zip"
-unzip -o m.zip
-chmod +x *
-rm -f m.zip
-
-# Proteksi Anti-Bajak: Kompilasi script shell ke binary ELF stripped menggunakan SHC
-if command -v shc &>/dev/null; then
-    echo "Mengamankan script sistem dengan SHC (Compile ke native ELF binary)..."
-    for s_file in /usr/local/sbin/* /usr/local/sbin/api/*; do
-        if [ -f "$s_file" ] && [ ! -L "$s_file" ]; then
-            case "$s_file" in
-                *.py|*.json|*.toml|*.conf|*.txt|*.key|*.crt|*.pub) continue ;;
-            esac
-            if file "$s_file" 2>/dev/null | grep -qi "shell script"; then
-                shc -r -f "$s_file" -o "${s_file}.bin" 2>/dev/null
-                if [ -f "${s_file}.bin" ]; then
-                    strip "${s_file}.bin" 2>/dev/null || true
-                    mv -f "${s_file}.bin" "$s_file"
-                    rm -f "${s_file}.x.c" 2>/dev/null
-                    chmod 755 "$s_file"
-                fi
-            fi
-        fi
-    done
-fi
-
-# Symlink all custom sbin scripts to /usr/bin to ensure they are always in PATH
-for file in /usr/local/sbin/*; do
-    if [ -f "$file" ]; then
-        ln -sf "$file" "/usr/bin/$(basename "$file")"
-    fi
-done
-
-# Ensure /usr/local/sbin is in PATH for all profiles
-if ! grep -q "PATH.*usr/local/sbin" /etc/profile 2>/dev/null; then
-    echo 'export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"' >> /etc/profile
-fi
-if [ -f "/root/.profile" ] && ! grep -q "PATH.*usr/local/sbin" /root/.profile 2>/dev/null; then
-    echo 'export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"' >> /root/.profile
-fi
-
-# Stoping HTTP
-systemctl stop apache2
-systemctl disable apache2
-
-# Setup SSLH
-cd /etc/default
-rm -f sslh
-get_file "sslh" "sslh"
-chmod 755 sslh
-cd
-
-# Setup Rest Api
-mkdir -p /usr/local/sbin/api
-cd /usr/local/sbin/api
-chmod +x *
-cd
-get_file "bin/server" "/usr/bin/server"
-chmod +x /usr/bin/server
-cat> /etc/systemd/system/server.service << END
-[Unit]
-Description=WebAPI Server Proxy All OS By rbstv
-After=syslog.target network-online.target
-
-[Service]
-User=root
-NoNewPrivileges=true
-ExecStart=/usr/bin/server
-Restart=on-failure
-RestartPreventExitStatus=23
-LimitNPROC=10000
-LimitNOFILE=1000000
-
-[Install]
-WantedBy=multi-user.target
-END
-mkdir -p /etc/api
-
-# Setup Proxy SSHWS (Go binary)
-cd /usr/local/bin
-get_file "bin/proxy" "proxy"
-chmod +x proxy
-cd
-
-# Setup VPN Bot & Helper CLI (Go binary)
-get_file "bin/vpn-bot" "/usr/bin/vpn-bot"
-chmod +x /usr/bin/vpn-bot
-ln -sf /usr/bin/vpn-bot /usr/local/sbin/vpn-bot
-echo -e "[Unit]
-Description=WebSocket SSH/HTTP/SOCKS5 Proxy (Go)
-After=syslog.target network-online.target
-
-[Service]
-User=root
-NoNewPrivileges=true
-ExecStart=/usr/local/bin/proxy
-Restart=on-failure
-RestartPreventExitStatus=23
-LimitNPROC=10000
-LimitNOFILE=1000000
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/proxy.service
-
-# Setup Socks5 Proxy
-if apt install dante-server -y 2>/dev/null; then
-    sudo touch /var/log/danted.log
-    sudo chown root:root /var/log/danted.log
-    primary_interface=$(ip route | grep default | awk '{print $5}')
-    sudo bash -c "cat <<EOF > /etc/danted.conf
-logoutput: /var/log/danted.log
-internal: 0.0.0.0 port = 1080
-external: $primary_interface
-method: username
-user.privileged: root
-client pass {
-    from: 0.0.0.0/0 to: 0.0.0.0/0
-    log: connect disconnect error
-}
-socks pass {
-    from: 0.0.0.0/0 to: 0.0.0.0/0
-    log: connect disconnect error
-}
-EOF"
-    if [ -f "/usr/lib/systemd/system/danted.service" ]; then
-        sudo sed -i '/\[Service\]/a ReadWriteDirectories=/var/log' /usr/lib/systemd/system/danted.service
-    elif [ -f "/lib/systemd/system/danted.service" ]; then
-        sudo sed -i '/\[Service\]/a ReadWriteDirectories=/var/log' /lib/systemd/system/danted.service
-    fi
-    sudo systemctl daemon-reload
-    sudo systemctl restart danted
-    sudo systemctl enable danted
-else
-    echo "dante-server not available. Installing microsocks SOCKS5 proxy instead..."
-    if apt install microsocks -y 2>/dev/null; then
-        cat <<EOF > /etc/systemd/system/microsocks.service
-[Unit]
-Description=MicroSocks SOCKS5 Proxy Server
-After=network.target
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/microsocks -p 1080
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-        systemctl daemon-reload
-        systemctl enable microsocks
-        systemctl start microsocks
-        # Maintain backward compatibility by symlinking danted.service to microsocks.service
-        ln -sf /etc/systemd/system/microsocks.service /etc/systemd/system/danted.service
-        systemctl daemon-reload
-    else
-        echo "Warning: Both dante-server and microsocks SOCKS5 proxies failed to install."
-    fi
-fi
-
-# Setup Nginx
-apt install nginx -y
-rm -f /etc/nginx/nginx.conf
-get_file "nginx.conf" "/etc/nginx/nginx.conf"
-sed -i "s|server_name .*;|server_name $domain;|" /etc/nginx/nginx.conf
-systemctl stop nginx
-systemctl disable nginx
-
-# Setup Badvpn
-wget -O /usr/local/bin/badvpn "https://raw.githubusercontent.com/powermx/badvpn/master/badvpn-udpgw" &>/dev/null
-chmod +x /usr/local/bin/badvpn
-
-# Create systemd service for Port 7100
-echo -e "[Unit]
-Description=BadVPN Gaming Support Port 7100 By rbstv
-After=syslog.target network-online.target
-
-[Service]
-User=root
-NoNewPrivileges=true
-Nice=-20
-ExecStart=/usr/local/bin/badvpn --listen-addr 127.0.0.1:7100 --max-clients 1000 --max-connections-for-client 1000 --client-socket-sndbuf 0 --udp-mtu 1380
-Restart=on-failure
-RestartPreventExitStatus=23
-LimitNPROC=10000
-LimitNOFILE=1000000
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/badvpn-7100.service
-
-# Create systemd service for Port 7200
-echo -e "[Unit]
-Description=BadVPN Gaming Support Port 7200 By rbstv
-After=syslog.target network-online.target
-
-[Service]
-User=root
-NoNewPrivileges=true
-Nice=-20
-ExecStart=/usr/local/bin/badvpn --listen-addr 127.0.0.1:7200 --max-clients 1000 --max-connections-for-client 1000 --client-socket-sndbuf 0 --udp-mtu 1380
-Restart=on-failure
-RestartPreventExitStatus=23
-LimitNPROC=10000
-LimitNOFILE=1000000
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/badvpn-7200.service
-
-# Create systemd service for Port 7300
-echo -e "[Unit]
-Description=BadVPN Gaming Support Port 7300 By rbstv
-After=syslog.target network-online.target
-
-[Service]
-User=root
-NoNewPrivileges=true
-Nice=-20
-ExecStart=/usr/local/bin/badvpn --listen-addr 127.0.0.1:7300 --max-clients 1000 --max-connections-for-client 1000 --client-socket-sndbuf 0 --udp-mtu 1380
-Restart=on-failure
-RestartPreventExitStatus=23
-LimitNPROC=10000
-LimitNOFILE=1000000
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/badvpn-7300.service
-
-# Maintain backward compatibility for badvpn.service
-cp /etc/systemd/system/badvpn-7300.service /etc/systemd/system/badvpn.service
-
-systemctl daemon-reload
-systemctl enable badvpn-7100 badvpn-7200 badvpn-7300 badvpn
-systemctl start badvpn-7100 badvpn-7200 badvpn-7300 badvpn
-systemctl restart badvpn-7100 badvpn-7200 badvpn-7300 badvpn
-
-# Setup Squid Proxy
-echo "Installing and configuring Squid Proxy..."
-apt install squid -y
-cat > /etc/squid/squid.conf << EOF
-http_port 8080
-http_port 3128
-acl SSH_ports port 22 90 109 111 3303
-http_access allow SSH_ports
-http_access deny all
-EOF
-systemctl daemon-reload
-systemctl enable squid
-systemctl restart squid
-
-# Setup UDP Custom
-rm -rf /etc/udp
-mkdir -p /etc/udp
-echo downloading udp-custom
-get_file "udp-custom-linux-amd64" "/etc/udp/udp-custom"
-chmod +x /etc/udp/udp-custom
-echo downloading default config
-get_file "udp.json" "/etc/udp/config.json"
-chmod 644 /etc/udp/config.json
-cat <<EOF > /etc/systemd/system/udp-custom.service
-[Unit]
-Description=UDP Custom by ePro Dev. Team and modify by FN Project
-
-[Service]
-User=root
-Type=simple
-Nice=-20
-ExecStart=/etc/udp/udp-custom server --config /etc/udp/config.json --exclude 7300,51820
-WorkingDirectory=/etc/udp/
-Restart=always
-RestartSec=2s
-
-[Install]
-WantedBy=default.target
-EOF
-echo start service udp-custom
-systemctl start udp-custom &>/dev/null
-echo enable service udp-custom
-systemctl enable udp-custom &>/dev/null
-
-# Cron
-apt install cron -y
-echo -e "
-*/15 * * * * root echo -n > /var/log/v2ray/access.log
-*/15 * * * * root xp
-* * * * * root /usr/local/sbin/v2ray-watchdog
-" >> /etc/crontab
-
-# Setup default Auto-Reboot Cron (04:00 AM daily)
-echo "0 4 * * * root /sbin/reboot" > /etc/cron.d/auto-reboot
-systemctl restart cron &>/dev/null
-
-# Setup V2Ray/Nginx Watchdog
-cat > /usr/local/sbin/v2ray-watchdog << 'EOF'
-#!/usr/bin/env bash
-if ! systemctl is-active --quiet v2ray; then
-    echo "$(date): v2ray is inactive, restarting..." >> /var/log/v2ray/watchdog.log
-    systemctl restart v2ray
-fi
-if ! systemctl is-active --quiet nginx; then
-    echo "$(date): nginx is inactive, restarting..." >> /var/log/v2ray/watchdog.log
-    systemctl restart nginx
-fi
-EOF
-chmod +x /usr/local/sbin/v2ray-watchdog
-
-systemctl daemon-reload
-systemctl restart cron
-
-# ===== Setup V2ray ======
-# Check if the group 'nobody' exists
-if getent group nobody > /dev/null; then
-    echo "Group 'nobody' already exists."
-else
-    echo "Group 'nobody' does not exist. Creating..."
-    groupadd nobody
-fi
-
-# Check if the user 'nobody' exists
-if getent passwd nobody > /dev/null; then
-    echo "User 'nobody' already exists."
-else
-    echo "User 'nobody' does not exist. Creating..."
-    useradd -g nobody -M -s /sbin/nologin nobody
-fi
-
-# Ensure V2Ray configuration directory exists
-mkdir -p /usr/local/etc/v2ray
-# Ensure V2Ray log directory exists
-mkdir -p /var/log/v2ray
-chown -R nobody /var/log/v2ray
-
-# Install Xray with retries
-echo "Installing Xray..."
-for i in {1..3}; do
-    if bash <(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh); then
-        echo "Xray installed successfully!"
-        systemctl stop xray.service 2>/dev/null || true
-        systemctl disable xray.service 2>/dev/null || true
-        systemctl stop xray@.service 2>/dev/null || true
-        systemctl disable xray@.service 2>/dev/null || true
-        break
-    else
-        echo "Xray installation failed, retrying ($i/3)..."
-        sleep 3
-    fi
-done
-
-# Maintain backward compatibility for v2ray binary execution path
-ln -sf /usr/local/bin/xray /usr/local/bin/v2ray
-
-# Create v2ray.service wrapping xray-core for backward compatibility
-cat > /etc/systemd/system/v2ray.service << END
-[Unit]
-Description=V2Ray Service (Xray-core drop-in wrapper)
-Documentation=https://github.com/XTLS/Xray-core
-After=network.target nss-lookup.target
-
-[Service]
-User=nobody
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-NoNewPrivileges=true
-ExecStart=/usr/local/bin/v2ray run -config /usr/local/etc/v2ray/config.json
-Restart=always
-RestartSec=3s
-LimitNPROC=10000
-LimitNOFILE=1000000
-
-[Install]
-WantedBy=multi-user.target
-END
-systemctl daemon-reload
-
-
-# Backup and merge existing config if it exists
-if [ -f "/usr/local/etc/v2ray/config.json" ]; then
-    cp /usr/local/etc/v2ray/config.json /usr/local/etc/v2ray/config.json.bak
-    get_file "config.json" "/usr/local/etc/v2ray/config.json"
-    
-    # Restore accounts using native Go helper
-    if [ -x "/usr/bin/vpn-bot" ]; then
-        /usr/bin/vpn-bot merge-config
-    elif [ -x "/usr/local/sbin/merge_config" ]; then
-        /usr/local/sbin/merge_config
-    fi
-else
-    get_file "config.json" "/usr/local/etc/v2ray/config.json"
-fi
-
-
-
-# Setup NoobzVPNS
-clear
-mkdir -p /etc/noobzvpns
-cd /etc/noobzvpns
-rm -fr *
-get_file "config.toml" "config.toml"
-wget -q -O /usr/bin/noobzvpns "https://github.com/noobz-id/noobzvpns/raw/master/noobzvpns.x86-64"
-chmod +x /usr/bin/noobzvpns
-echo -e "[Unit]
-Description=NoobzVpn-Server
-Wants=network-online.target
-After=network.target network-online.target
-
-[Service]
-CapabilityBoundingSet=CAP_NET_BIND_SERVICE
-AmbientCapabilities=CAP_NET_BIND_SERVICE
-User=root
-Type=simple
-TimeoutStopSec=1
-LimitNOFILE=infinity
-ExecStart=/usr/bin/noobzvpns start-server
-
-[Install]
-WantedBy=multi-user.target
-" > /etc/systemd/system/noobzvpns.service
-chmod +x /etc/noobzvpns/*
-cd
-
-# Certificate
-iptables -t nat -D PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 2080 2>/dev/null || true
-echo -e "${domain}" > /usr/local/etc/v2ray/domain
-    rm -rf /root/.acme.sh
-    mkdir -p /root/.acme.sh
-    curl -sSL https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh -o /root/.acme.sh/acme.sh
-    chmod +x /root/.acme.sh/acme.sh
-    /root/.acme.sh/acme.sh --upgrade --auto-upgrade || true
-    # SSL Certificate Generation with Fallback (LetsEncrypt -> ZeroSSL -> BuyPass)
-    /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
-    if ! /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256; then
-        echo "Let's Encrypt rate-limited or failed. Trying ZeroSSL..."
-        /root/.acme.sh/acme.sh --register-account -m admin@${domain} --server zerossl
-        /root/.acme.sh/acme.sh --set-default-ca --server zerossl
-        if ! /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256; then
-            echo "ZeroSSL failed. Trying BuyPass..."
-            /root/.acme.sh/acme.sh --set-default-ca --server buypass
-            /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
-        fi
-    fi
-    /root/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /usr/local/etc/v2ray/v2ray.crt --keypath /usr/local/etc/v2ray/v2ray.key --ecc
-
-    # Fallback to self-signed certificate if acme.sh failed to create the certificate or file is empty/corrupt
-    if [ ! -s "/usr/local/etc/v2ray/v2ray.crt" ] || [ ! -s "/usr/local/etc/v2ray/v2ray.key" ] || ! grep -q "BEGIN CERTIFICATE" /usr/local/etc/v2ray/v2ray.crt 2>/dev/null; then
-        echo "SSL certificate not found or invalid. Generating self-signed certificate as fallback..."
-        mkdir -p /usr/local/etc/v2ray
-        rm -f /usr/local/etc/v2ray/v2ray.key /usr/local/etc/v2ray/v2ray.crt
-        openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 \
-            -subj "/C=ID/ST=Jakarta/L=Jakarta/O=FNProject/CN=${domain}" \
-            -keyout /usr/local/etc/v2ray/v2ray.key \
-            -out /usr/local/etc/v2ray/v2ray.crt &>/dev/null
-        chmod 644 /usr/local/etc/v2ray/v2ray.crt 2>/dev/null || true
-        chmod 600 /usr/local/etc/v2ray/v2ray.key 2>/dev/null || true
-    fi
-
-cd /root
-
-# Service NoobzVPN
-systemctl daemon-reload
-systemctl enable noobzvpns
-systemctl start noobzvpns
-
-# Enable & Start Service
-systemctl daemon-reload
-pkill sslh
-systemctl enable v2ray
-systemctl enable nginx
-systemctl enable sslh
-systemctl restart v2ray
-systemctl restart nginx
-systemctl restart sslh
-systemctl enable proxy
-systemctl start proxy
-systemctl restart proxy
-
-# Setup Stunnel4
-echo "Installing and configuring Stunnel4..."
-apt install stunnel4 -y
-mkdir -p /etc/stunnel
-cat > /etc/stunnel/stunnel.conf << END
-pid = /var/run/stunnel4.pid
-cert = /usr/local/etc/v2ray/v2ray.crt
-key = /usr/local/etc/v2ray/v2ray.key
-
-[dropbear_222]
-accept = 0.0.0.0:222
-connect = 127.0.0.1:111
-
-[dropbear_777]
-accept = 0.0.0.0:777
-connect = 127.0.0.1:111
-
-[openssh_990]
-accept = 0.0.0.0:990
-connect = 127.0.0.1:22
-END
-sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
-systemctl daemon-reload
-systemctl enable stunnel4
-systemctl restart stunnel4
-
-# Setup Fail2Ban
-echo "Installing and configuring Fail2Ban..."
-apt install fail2ban -y
-cat > /etc/fail2ban/jail.local << END
-[DEFAULT]
-bantime = 10m
-findtime = 10m
-maxretry = 5
-backend = systemd
-ignoreip = 127.0.0.1/8 ::1
-
-[sshd]
-enabled = true
-port = 22,109,3303,990
-
-[dropbear]
-enabled = true
-port = 111,222,777
-END
-systemctl daemon-reload
-systemctl enable fail2ban
-systemctl restart fail2ban
-
-# Setup SSH Limit Daemon (Go binary)
-echo "Installing and configuring SSH Limit Daemon..."
-get_file "bin/ssh-limit" "/usr/local/sbin/ssh-limit"
-chmod +x /usr/local/sbin/ssh-limit
-ln -sf /usr/local/sbin/ssh-limit /usr/bin/ssh-limit
-
-# Setup Update Script
-get_file "update.sh" "/usr/local/sbin/update"
-chmod +x /usr/local/sbin/update
-ln -sf /usr/local/sbin/update /usr/bin/update
-
-# Setup Uninstall Script
-get_file "uninstall.sh" "/usr/local/sbin/uninstall"
-chmod +x /usr/local/sbin/uninstall
-ln -sf /usr/local/sbin/uninstall /usr/bin/uninstall
-
-
-# Systemd Service and Timer for ssh-limit
-cat > /etc/systemd/system/ssh-limit.service << END
-[Unit]
-Description=SSH and VPN IP Limit Enforcer By rbstv
-After=network.target
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/sbin/ssh-limit
-END
-
-cat > /etc/systemd/system/ssh-limit.timer << END
-[Unit]
-Description=Run SSH Limit Enforcer Every Minute
-
-[Timer]
-OnBootSec=1min
-OnUnitActiveSec=1min
-AccuracySec=1s
-
-[Install]
-WantedBy=timers.target
-END
-
-systemctl daemon-reload
-systemctl enable ssh-limit.timer
-systemctl start ssh-limit.timer
-
-# Setup Periodic License Check Watchdog (Anti-Bajak)
-cat > /usr/local/sbin/license-check << 'EOF'
-#!/usr/bin/env bash
-CONFIG_FILE="/etc/vpn-script/license.conf"
-if [ ! -f "$CONFIG_FILE" ]; then
-    exit 0
-fi
-
-source "$CONFIG_FILE"
-if [ -z "$PERMISSION_URL" ]; then
-    exit 0
-fi
-
-my_ip=""
-my_ip=$(curl -sS --max-time 5 https://ipv4.icanhazip.com 2>/dev/null | tr -d '[:space:]')
-[ -z "$my_ip" ] && my_ip=$(curl -sS --max-time 5 http://checkip.amazonaws.com 2>/dev/null | tr -d '[:space:]')
-[ -z "$my_ip" ] && my_ip="$IP"
-
-cache_buster="?v=$(date +%s)"
-raw_data=$(curl -sS --max-time 10 "${PERMISSION_URL}${cache_buster}" 2>/dev/null)
-if [ -z "$raw_data" ] && [ -n "$PERMISSION_FALLBACK_URL" ]; then
-    raw_data=$(curl -sS --max-time 10 "${PERMISSION_FALLBACK_URL}${cache_buster}" 2>/dev/null)
-fi
-
-if [ -z "$raw_data" ] || echo "$raw_data" | grep -qi "404: Not Found"; then
-    exit 0
-fi
-
-match_line=$(echo "$raw_data" | grep -E "(^|[[:space:]])${my_ip}([[:space:]]|$)" | head -n 1)
-
-revoke_license() {
-    local reason="$1"
-    logger -t "vpn-license" "License revoked: $reason"
-    systemctl stop v2ray proxy server dropbear noobzvpns badvpn badvpn-7100 badvpn-7200 badvpn-7300 udp-custom client-sldns 2>/dev/null || true
-    systemctl disable v2ray proxy server dropbear noobzvpns badvpn badvpn-7100 badvpn-7200 badvpn-7300 udp-custom client-sldns 2>/dev/null || true
-    cat > /etc/issue.net << END
-*****************************************************
-* AKSES DINONAKTIFKAN: LISENSI AUTOSCRIPT HABIS    *
-* Silakan hubungi Admin: ${ADMIN_TELEGRAM:-@BrianStovia}             *
-*****************************************************
-END
-}
-
-if [ -z "$match_line" ]; then
-    revoke_license "IP tidak ditemukan di database izin"
-    exit 1
-fi
-
-exp_date=""
-if echo "$match_line" | grep -q "^###"; then
-    exp_date=$(echo "$match_line" | awk '{print $3}')
-else
-    if [ "$(echo "$match_line" | awk '{print $1}')" = "$my_ip" ]; then
-        exp_date=$(echo "$match_line" | awk '{print $2}')
-    fi
-fi
-
-if [ -n "$exp_date" ]; then
-    today=$(date +%Y-%m-%d)
-    today_sec=$(date -d "$today" +%s 2>/dev/null || date +%s)
-    exp_sec=$(date -d "$exp_date" +%s 2>/dev/null || echo 0)
-    if [ "$exp_sec" -ne 0 ] && [ "$exp_sec" -lt "$today_sec" ]; then
-        revoke_license "Masa aktif lisensi telah habis ($exp_date)"
-        exit 1
-    fi
-fi
-
-exit 0
-EOF
-chmod 755 /usr/local/sbin/license-check
-
-cat > /etc/systemd/system/license-check.service << EOF
-[Unit]
-Description=VPN Autoscript License Periodic Validator
-After=network.target network-online.target
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/sbin/license-check
-EOF
-
-cat > /etc/systemd/system/license-check.timer << EOF
-[Unit]
-Description=Daily License Verification Timer
-
-[Timer]
-OnBootSec=10min
-OnCalendar=*-*-* 00:00:00
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
-
-systemctl daemon-reload
-systemctl enable license-check.timer
-systemctl start license-check.timer
-
-# Setup SlowDNS
-echo "Installing and configuring SlowDNS..."
-mkdir -p /etc/slowdns
-echo "ns.${domain}" > /etc/slowdns/nameserver
-
-# Download prebuilt dnstt dns-server
-wget -q -O /usr/sbin/dns-server "https://github.com/powermx/dnstt/raw/refs/heads/main/dns-server"
-chmod +x /usr/sbin/dns-server
-
-# Generate key pair
-/usr/sbin/dns-server -gen-key -privkey-file /etc/slowdns/server.key -pubkey-file /etc/slowdns/server.pub
-
-# Create Systemd Service for client-sldns (SlowDNS)
-cat > /etc/systemd/system/client-sldns.service << EOF
-[Unit]
-Description=SlowDNS rbstv Autoscript Service
-After=network.target nss-lookup.target
-
-[Service]
-Type=simple
-User=root
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-AmbientCapabilities=CAP_NET_BIND_SERVICE CAP_NET_ADMIN
-NoNewPrivileges=true
-ExecStart=/usr/sbin/dns-server -udp :5300 -privkey-file /etc/slowdns/server.key ns.${domain} 127.0.0.1:111
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Create compatibility symlink for dnstt.service
-ln -sf /etc/systemd/system/client-sldns.service /etc/systemd/system/dnstt.service
-
-systemctl daemon-reload
-systemctl enable client-sldns
-systemctl enable dnstt
-systemctl restart client-sldns
-systemctl restart dnstt
-
-
-
-# Get main network interface
-primary_interface=$(ip route | grep default | awk '{print $5}')
-
-# ===== IP Tables Main Port
-
-if [ -n "$primary_interface" ]; then
-    # Redirect TCP 443 ke TCP 2443
-    iptables -t nat -A PREROUTING -i $primary_interface -p tcp --dport 443 -j REDIRECT --to-port 2443
-
-    # Redirect UDP 443 ke UDP 36712
-    iptables -t nat -A PREROUTING -i $primary_interface -p udp --dport 443 -j REDIRECT --to-port 36712
-
-    # Redirect TCP 80 ke TCP 700 (Go WS Proxy) untuk bypass Nginx
-    iptables -t nat -A PREROUTING -i $primary_interface -p tcp --dport 80 -j REDIRECT --to-port 700
-
-    # Redirect UDP 80 ke UDP 36712
-    iptables -t nat -A PREROUTING -i $primary_interface -p udp --dport 80 -j REDIRECT --to-port 36712
-
-    # Redirect UDP 53 ke UDP 5300 untuk SlowDNS
-    iptables -t nat -A PREROUTING -i $primary_interface -p udp --dport 53 -j REDIRECT --to-port 5300
-else
-    # Redirect TCP 443 ke TCP 2443
-    iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 2443
-
-    # Redirect UDP 443 ke UDP 36712
-    iptables -t nat -A PREROUTING -p udp --dport 443 -j REDIRECT --to-port 36712
-
-    # Redirect TCP 80 ke TCP 700 (Go WS Proxy) untuk bypass Nginx
-    iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 700
-
-    # Redirect UDP 80 ke UDP 36712
-    iptables -t nat -A PREROUTING -p udp --dport 80 -j REDIRECT --to-port 36712
-
-    # Redirect UDP 53 ke UDP 5300 untuk SlowDNS
-    iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5300
-fi
-
-
-
-# Open UDP port 5300 for SlowDNS
-iptables -A INPUT -p udp --dport 5300 -j ACCEPT
-
-iptables-save > /etc/iptables/rules.v4
-
-# Setup WireGuard VPN
-echo "Installing and configuring WireGuard..."
-apt install wireguard wireguard-tools qrencode -y
-mkdir -p /etc/wireguard
-chmod 700 /etc/wireguard
-
-# Enable IPv4 routing/forwarding
-sysctl_optimize "net.ipv4.ip_forward" "1"
-echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/99-vpn.conf
-sysctl --system
-
-# Generate Server Keys if they don't exist
-if [ ! -f "/etc/wireguard/private.key" ]; then
-    wg genkey | tee /etc/wireguard/private.key | wg pubkey > /etc/wireguard/public.key
-    chmod 600 /etc/wireguard/private.key /etc/wireguard/public.key
-fi
-
-server_priv=$(cat /etc/wireguard/private.key)
-
-# Create Server Configuration
-cat > /etc/wireguard/wg0.conf << END
-[Interface]
-Address = 10.22.0.1/24
-SaveConfig = true
-PrivateKey = ${server_priv}
-ListenPort = 51820
-PostUp = sysctl -w net.ipv4.ip_forward=1; iptables -A FORWARD -i wg0 -o ${primary_interface} -j ACCEPT; iptables -A FORWARD -i ${primary_interface} -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT; iptables -t nat -A POSTROUTING -o ${primary_interface} -j MASQUERADE; iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
-PostDown = iptables -D FORWARD -i wg0 -o ${primary_interface} -j ACCEPT; iptables -D FORWARD -i ${primary_interface} -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT; iptables -t nat -D POSTROUTING -o ${primary_interface} -j MASQUERADE; iptables -t mangle -D FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
-MTU = 1420
-END
-
-systemctl daemon-reload
-systemctl enable wg-quick@wg0
-systemctl restart wg-quick@wg0
-
-# Setup Netdata Web Dashboard
-echo "Installing Netdata Web Dashboard Monitoring..."
-if ! command -v netdata &> /dev/null; then
-    wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh && sh /tmp/netdata-kickstart.sh --non-interactive --disable-telemetry || true
-fi
-
-# Configure Netdata to bind only to 127.0.0.1
-if [ -f "/etc/netdata/netdata.conf" ]; then
-    if grep -q "\[web\]" /etc/netdata/netdata.conf; then
-        sed -i '/\[web\]/a \    bind to = 127.0.0.1' /etc/netdata/netdata.conf
-    else
-        echo -e "\n[web]\n    bind to = 127.0.0.1" >> /etc/netdata/netdata.conf
-    fi
-    systemctl restart netdata || true
-fi
-
-# Setup Netdata Password Basic Authentication
-netdata_pass="admin$(echo "$domain" | tr -d '.')"
-pass_hash=$(openssl passwd -1 "$netdata_pass")
-echo "admin:$pass_hash" > /etc/nginx/.htpasswd
-systemctl restart nginx || true
-
-clear
-# rm -f /root/* # Disabled to protect local files and workspace from accidental deletion
-
-echo -e "menu" >> /root/.profile
-pub_key=$(cat /etc/slowdns/server.pub 2>/dev/null)
-clear
-echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo -e "          Success Install          "
-echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo -e " SlowDNS Nameserver : ns.${domain}"
-echo -e " SlowDNS Public Key : ${pub_key}"
-echo -e " Web Dashboard      : https://${domain}/netdata/"
-echo -e " Dashboard User     : admin"
-echo -e " Dashboard Pass     : ${netdata_pass}"
-echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-exit 0
+eval "$__0x6c2e"
