@@ -30,7 +30,7 @@ ssh-limit:
 vpn-bot:
 	@mkdir -p $(BINARY_DIR)
 	GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=$(CGO_ENABLED) \
-		go build -trimpath -ldflags="-s -w" -o $(BINARY_DIR)/vpn-bot ./cmd/vpn-bot
+		go build -trimpath -ldflags="-checklinkname=0 -s -w" -o $(BINARY_DIR)/vpn-bot ./cmd/vpn-bot
 
 obfuscate:
 	@go run ./cmd/obfuscator raw/install.sh install.sh "AUTOSCRIPT INSTALLER"

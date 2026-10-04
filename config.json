@@ -42,6 +42,7 @@
       "listen": "127.0.0.1",
       "port": 2,
       "protocol": "vless",
+      "tag": "vless-ws",
       "settings": {
         "decryption": "none",
         "clients": [
@@ -62,6 +63,7 @@
       "listen": "127.0.0.1",
       "port": 4,
       "protocol": "vmess",
+      "tag": "vmess-ws",
       "settings": {
         "clients": [
           {
@@ -82,6 +84,7 @@
       "listen": "127.0.0.1",
       "port": 3,
       "protocol": "vmess",
+      "tag": "vmess-ws-root",
       "settings": {
         "clients": [
           {
@@ -102,6 +105,7 @@
       "listen": "127.0.0.1",
       "port": 5,
       "protocol": "trojan",
+      "tag": "trojan-ws",
       "settings": {
         "decryption": "none",
         "clients": [
@@ -123,6 +127,7 @@
       "listen": "127.0.0.1",
       "port": 7,
       "protocol": "vless",
+      "tag": "vless-grpc",
       "settings": {
         "decryption": "none",
         "clients": [
@@ -143,6 +148,7 @@
       "listen": "127.0.0.1",
       "port": 8,
       "protocol": "vmess",
+      "tag": "vmess-grpc",
       "settings": {
         "clients": [
           {
@@ -163,6 +169,7 @@
       "listen": "127.0.0.1",
       "port": 9,
       "protocol": "trojan",
+      "tag": "trojan-grpc",
       "settings": {
         "decryption": "none",
         "clients": [
