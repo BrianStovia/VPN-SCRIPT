@@ -206,10 +206,9 @@
             "azure.microsoft.com",
             "speedtest.net"
           ],
-          "privateKey": "YOUR_REALITY_PRIVATE_KEY",
+          "privateKey": "nl8R2oKbIu-MgbRRtTZAeHmjC-VtD1hC2iOXRdn5sIc",
           "shortIds": [
-            "0123456789abcdef",
-            ""
+            "814ed2fcaa2b561f"
           ]
         }
       },
@@ -247,10 +246,9 @@
             "azure.microsoft.com",
             "speedtest.net"
           ],
-          "privateKey": "YOUR_REALITY_PRIVATE_KEY",
+          "privateKey": "nl8R2oKbIu-MgbRRtTZAeHmjC-VtD1hC2iOXRdn5sIc",
           "shortIds": [
-            "0123456789abcdef",
-            ""
+            "814ed2fcaa2b561f"
           ]
         },
         "grpcSettings": {
