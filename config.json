@@ -178,6 +178,92 @@
           "serviceName": "trojan-grpc"
         }
       }
+    },
+    {
+      "listen": "0.0.0.0",
+      "port": 8443,
+      "protocol": "vless",
+      "tag": "vless-reality",
+      "settings": {
+        "clients": [
+          {
+            "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0",
+            "flow": "xtls-rprx-vision"
+            #reality
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "www.microsoft.com:443",
+          "xver": 0,
+          "serverNames": [
+            "www.microsoft.com",
+            "azure.microsoft.com",
+            "speedtest.net"
+          ],
+          "privateKey": "YOUR_REALITY_PRIVATE_KEY",
+          "shortIds": [
+            "0123456789abcdef",
+            ""
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    },
+    {
+      "listen": "0.0.0.0",
+      "port": 8444,
+      "protocol": "vless",
+      "tag": "vless-reality-grpc",
+      "settings": {
+        "clients": [
+          {
+            "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+            #realitygrpc
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "reality",
+        "realitySettings": {
+          "show": false,
+          "dest": "www.microsoft.com:443",
+          "xver": 0,
+          "serverNames": [
+            "www.microsoft.com",
+            "azure.microsoft.com",
+            "speedtest.net"
+          ],
+          "privateKey": "YOUR_REALITY_PRIVATE_KEY",
+          "shortIds": [
+            "0123456789abcdef",
+            ""
+          ]
+        },
+        "grpcSettings": {
+          "serviceName": "reality-grpc"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
     }
   ],
   "outbounds": [
